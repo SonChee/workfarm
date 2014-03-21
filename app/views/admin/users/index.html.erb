@@ -1,0 +1,23 @@
+<% provide(:title, "Index") %>
+<h1>All user</h1>
+<% if @users.present? %>
+  <table class = "table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>We don't have any users </h3>
+<% end %>
+<p>Find me in app/views/admin/users/index.html.erb</p>
