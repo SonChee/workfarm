@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Created success"
       redirect_to admin_user_path @user
     else
       render 'new'
