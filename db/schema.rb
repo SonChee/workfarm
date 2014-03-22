@@ -15,9 +15,17 @@ ActiveRecord::Schema.define(version: 20140321121621) do
 
   create_table "users", force: true do |t|
     t.string   "code"
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "password_digest"
     t.string   "email"
+    t.datetime "birthday"
+    t.integer  "city_id"
+    t.integer  "home_town_id"
+    t.string   "address"
+    t.integer  "university_id"
+    t.integer  "class_id"
+    t.integer  "permit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
