@@ -2,13 +2,6 @@ class AuthenticatableController < ApplicationController
 
   private
 
-  # def authenticate_admin!
-  #   authenticate_user!
-  #   unless (cuc = current_user.class) == User
-  #     redirect_to root_path, notice: "Please sign in."
-  #   end
-  # end
-
   def authenticate_admin!
     if signed_in?
       unless current_user.class == Admin
@@ -19,8 +12,18 @@ class AuthenticatableController < ApplicationController
     end
   end
 
+  def authenticate_member!
+    if signed_in?
+      unless current_user.class == Member
+        redirect_to root_path, notice: "You do not have permission to access this page."
+      end
+    else
+      redirect_to root_path, notice: "Please sign in."
+    end
+  end
 
 
+  #TODO clear all quote
   # def authenticate_admin!
   #   authenticate_user!
   #   unless (cuc = current_user.class) == Admin

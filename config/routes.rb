@@ -7,10 +7,12 @@ WorkFarm::Application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   namespace :admin do
+    resources :admins
     resources :users
   end
 
   namespace :member do
+    resources :members
     resources :tasks
   end
   # The priority is based upon order of creation: first created -> highest priority.

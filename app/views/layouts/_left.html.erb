@@ -1,0 +1,32 @@
+<% if signed_in? %>
+  <div class="well sidebar-nav">
+  <!-- Categories -->
+    <div class="box categories">
+      <div class="box-content">
+        <ul>
+          <%= gravatar_for current_user %>
+        	<br><%= current_user.full_name %></br>
+          <li>level</li>
+          <li>position</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Categories -->
+  </div>
+  <div class="well sidebar-nav">
+  <!-- Categories -->
+    <div class="box categories">
+      <h2>Groups</h2>
+      <div class="box-content">
+        <ul>
+          <li>hahaha</li>
+          <li>hehehe</a></li>
+          <li>hohoho</li>
+          <li>hihihi</li>
+          <li>blablabla</li>
+        </ul>
+      </div>
+    </div>
+    <!-- End Categories -->
+  </div>
+<% end %>

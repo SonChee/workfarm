@@ -10,13 +10,31 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+    <% if signed_in? %>
+      <div>
+        <div class="row">
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+          <% end %>
+          <div class="leftsidebar">
+            <%= render 'layouts/left' %>
+          </div>
+          <div class="content">
+            <%= yield %>
+          </div>
+          <div class="rightsidebar">
+            <%= render 'layouts/right' %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+    <div class="content-empty width-table90">
       <%= yield %>
+    </div>
+    <% end %>
+    <div class="footer">
       <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
+  <%= debug(params) if Rails.env.development? %>
 </html>
