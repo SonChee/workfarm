@@ -1,45 +1,196 @@
 <% if signed_in? %>
+  <% inprocess_tasks = Task.in_process_find_by_user_id(current_user.id) %>
+  <% important_tasks = Task.important_find_by_user_id(current_user.id) %>
+  <% all_tasks = Task.all_task_find_by_user_id(current_user.id) %>
   <div class="well sidebar-nav">
     <!-- Categories -->
     <div class="box categories">
       <h2>Your current task</h2>
       <div class="box-content">
-        <br>task name : </br>
-        <br>task short description</br>
+        <% if inprocess_tasks.present? %>
+            <% inprocess_tasks.each do |task| %>
+              <% case current_user.class.name %>
+              <% when "Admin" %>
+                <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
+              <% when "User" %>
+                <div><%= link_to "Task : " + task.name, user_task_path(current_user, task) %></div>
+              <% end %>
+              <div>Short description : <%= task.short_description %></div>
+
+              <div>
+                <% if task.due_date %>
+                  <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
+                  <% left_time = left_time(task.due_date.to_time,Time.now) %>
+                  <% if task_time > 3600 %>  
+                    <div>Left time : <%= left_time %></div>
+                  <% elsif task_time > 0 %>  
+                    <div class="left-time-note">Left time : <%= left_time %></div>
+                  <% else %>
+                    <div class="left-time-delay">Delay : <%= left_time %></div>
+                  <% end %> 
+                <% end %>
+                Process : (<%= task.process %>%)
+                <% if task.process > 50 %>
+                  <%= progress_bar(task.process, color: "orange", :rounded => true, :tiny => true) %>
+                <% else %>
+                  <%= progress_bar(task.process, :rounded => true, :tiny => true) %>
+                <% end %> 
+              </div>
+              </br>
+
+            <% end %>
+          <% else %>
+            You don't have any task in process!
+          <% end %>
       </div>
     </div>
     <!-- End Categories -->
   </div>
 
-  <div class="well sidebar-nav">
-    <!-- Categories -->
-    <div class="box categories">
-      <h2>Important tasks</h2>
-      <p>
-        <a href="#" class="bul">important task 1</a><br>
-        <a href="#" class="bul">important task 2</a> 
-      </p>
+  <% if important_tasks.present? %>
+    <div class="well sidebar-nav">
+      <!-- Categories -->
+      <div class="box categories">
+        <h2>Important tasks (<%= important_tasks.count %>)</h2>
+        <div class="box-content">
+          <% important_tasks.each do |task| %>
+            <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) if task.due_date %>
+            <% left_time = left_time(task.due_date.to_time,Time.now) if task.due_date %>
+            <% case current_user.class.name %>
+            <% when "Admin" %>
+              <% if task.due_date %>
+                <% if task_time > 3600 %>
+                  <div class="task">  
+                    <div><%= link_to task.name, admin_task_path(task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% elsif task_time > 0 %>
+                  <div class="task-note">
+                    <div><%= link_to task.name, admin_task_path(task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% else %>
+                  <div class="task-delay">
+                    <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
+                    <div>Delay : <%= left_time%></div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="task">
+                  <div><%= link_to task.name, admin_task_path(task) %></div>
+                  <div>Task don't have dealine</div>
+                </div>
+              <% end %>
+            <% when "User" %>
+              <% if task.due_date %>
+                <% if task_time > 3600 %>
+                  <div class="task">  
+                    <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% elsif task_time > 0 %>
+                  <div class="task-note">
+                    <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% else %>
+                  <div class="task-delay">
+                    <div><%= link_to "Task : " + task.name, user_task_path(current_user, task) %></div>
+                    <div>Delay : <%= left_time%></div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="task">
+                  <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                  <div>Task don't have dealine</div>
+                </div>
+              <% end %>
+            <% end %>
+
+          <% end %>
+        </div>
+      </div>
+      <!-- End Categories -->
     </div>
-    <!-- End Categories -->
-  </div>
+  <% end %>
 
   <div class="well sidebar-nav">
     <!-- Categories -->
+    
     <div class="box categories">
-      <h2>List tasks <span></span></h2>
-      <p>
-        <a href="#" class="bul">view all tasks</a><br>
-        <a href="#" class="bul">sdfasdf</a> 
-      </p>
+      <h2>List tasks (<%= all_tasks.count %>)<span></span></h2>
       <div class="box-content">
-        <ul>
-          <li>hehehe</a></li>
-          <li>hohoho</li>
-          <li>hihihi</li>
-          <li>blablabla</li>
-        </ul>
+        <% if all_tasks.present? %>
+          <% all_tasks.each do |task| %>
+            <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) if task.due_date %>
+            <% left_time = left_time(task.due_date.to_time,Time.now) if task.due_date %>
+            <% case current_user.class.name %>
+            <% when "Admin" %>
+              <% if task.due_date %>
+                <% if task_time > 3600 %>
+                  <div class="task">  
+                    <div><%= link_to task.name, admin_task_path(task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% elsif task_time > 0 %>
+                  <div class="task-note">
+                    <div><%= link_to task.name, admin_task_path(task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% else %>
+                  <div class="task-delay">
+                    <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
+                    <div>Delay : <%= left_time%></div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="task">
+                  <div><%= link_to task.name, admin_task_path(task) %></div>
+                  <div>Task don't have dealine</div>
+                </div>
+              <% end %>
+            <% when "User" %>
+              <% if task.due_date %>
+                <% if task_time > 3600 %>
+                  <div class="task">  
+                    <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% elsif task_time > 0 %>
+                  <div class="task-note">
+                    <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                    <div>Left time : <%= left_time%></div>
+                  </div>
+                <% else %>
+                  <div class="task-delay">
+                    <div><%= link_to "Task : " + task.name, user_task_path(current_user, task) %></div>
+                    <div>Delay : <%= left_time%></div>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="task">
+                  <div><%= link_to task.name, user_task_path(current_user, task) %></div>
+                  <div>Task don't have dealine</div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          List task is empty
+        <% end %>
       </div>
     </div>
     <!-- End Categories -->
   </div>
 <% end %>
+<!-- TODO
+  Use javascript to update time show, it make website look like PRO
+ -->
+<script type="text/javascript">
+  function showtime(){
+    var currentdate = new Date(); 
+    $("#clock").html( currentdate.getTime() );
+    setTimeout("showtime()",1000);
+  };
+  showtime();
+</script>

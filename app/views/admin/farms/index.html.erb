@@ -1,0 +1,30 @@
+<% provide(:title, "Index") %>
+<h1>All farms</h1>
+<% if @big_farms.present? %>
+  <table class = "table table-bordered width-table90">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Farm boss</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @big_farms.each do |farm| %>
+        <tr>
+          <td><%= link_to farm.name, admin_farm_path(farm.id) %></td>
+          <td><%= farm.description %></td>
+          <td>
+            <% PositionInFarm.find_big_farm_managers_by_farm_id(farm.id).each do |position| %>
+              <% if position.position == 1 %>
+                <%= link_to position.user.full_name, admin_user_path(position.user.id) %>
+              <% end %>
+            <% end %>
+          </td>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>We don't have any big farms </h3>
+<% end %>
+<div class="btn"><%= link_to "Create big farm", new_admin_farm_path %></div>

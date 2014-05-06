@@ -13,4 +13,28 @@ module ApplicationHelper
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
     image_tag(gravatar_url, alt: user.full_name, class: "gravatar")
   end
+  def left_time(time1, time2)
+    time = time1.to_i - time2.to_i
+    time = time.abs
+
+    if time > 60 
+      s = time%60
+      time = time/60
+      if time > 60  
+        m = time%60
+        time = time/60
+        if time > 24
+          h = time%24
+          time = time/24
+          rep =  time.to_s + "days " + h.to_s + "hours"
+        else
+          rep =  time.to_s + "hours " + m.to_s + "min"
+        end
+      else
+        rep = time.to_s + "min"
+      end
+    else
+      rep = time.to_s + "second"
+    end
+  end
 end

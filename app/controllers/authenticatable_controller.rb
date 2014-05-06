@@ -22,6 +22,12 @@ class AuthenticatableController < ApplicationController
     end
   end
 
+  def authenticate_user!
+    unless signed_in?
+      redirect_to root_path, notice: "Please sign in."
+    end
+  end
+
 
   #TODO clear all quote
   # def authenticate_admin!

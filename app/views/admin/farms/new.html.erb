@@ -1,0 +1,33 @@
+<% provide(:title, "Create big farm") %>
+<h1>Create big farm</h1>
+
+<%= form_for [:admin, @farm] do |f| %>
+  <%= render "shared/error_messages", object: @farm %>
+  <table class = "table table-bordered width-table80">
+    <tr>
+      <td width = "20%"><%= f.label :name %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_field :name %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_area :description %></div></td>
+    </tr>
+    <tr>
+      <td>Select admin of big farm</td>
+      <td>
+        <%= f.fields_for :position_in_farms do |builder|  %>
+          <div>
+            <%= builder.check_box :user_id, {checked: false}, builder.object.user.id %><%= link_to builder.object.user.full_name, user_path(builder.object.user) %>
+            <%= builder.hidden_field :position, value: 1 %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <%= f.hidden_field :kind, value: 1 %>
+    <tr>
+      <td colspan="2">
+        <div class="center"><%= f.submit "Create farm", class: "btn btn-primary" , id: "submit"%></div>
+      </td>
+    </tr>
+  </table>
+<% end %>

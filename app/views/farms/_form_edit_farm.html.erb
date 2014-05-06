@@ -1,0 +1,50 @@
+<% provide(:title, "Update farm") %>
+<h1>Update farm</h1>
+
+<%= form_for [@user, @farm] do |f| %>
+  <%= render "shared/error_messages", object: @farm %>
+  <table class = "table table-bordered width-table80">
+    <tr>
+      <td width = "20%"><%= f.label :name %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_field :name %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_area :description %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :user_id %></td>
+      <td>TODO update late</td>
+    </tr>
+    <tr>
+      <td>All user</td>
+      <td>
+        <%= f.fields_for :position_in_farms do |builder|  %>
+          <% unless builder.object.position == 1 %>
+            <div>
+              <div class="div-select-position" >
+                <%= builder.check_box :user_id, {checked: builder.object.checked, class: "position_checkbox"}, builder.object.user.id %>
+                <%= builder.hidden_field :_destroy %>
+              </div>
+              <div class="div-select-position"><%= builder.object.user.full_name %></div>
+              <div class="div-select-position"><%= builder.select :position, options_for_select([2,3].each{|d| [d,d]}, selected: builder.object.position) %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="center"><%= f.submit "Update farm", class: "btn btn-primary" , id: "submit"%>  <%= link_to "Back", user_farm_path, class: "btn" %></div>
+      </td>
+    </tr>
+  </table>
+<% end %>
+<script type="text/javascript">
+  $("form").on("click", ".position_checkbox", function(event) {
+    if ($(this).is(":checked")) 
+      $(this).next("input[type=hidden]").val("0");
+    else 
+      $(this).next("input[type=hidden]").val("1");
+});
+</script>

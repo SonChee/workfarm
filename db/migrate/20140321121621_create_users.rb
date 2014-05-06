@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :address
       t.integer :university_id
       t.integer :class_id
+      t.integer :current_big_farm_id
       t.timestamps
     end
     add_index :users, [:email], unique: true

@@ -1,0 +1,46 @@
+<% provide(:title, @task.name) %>
+<h1><%= @task.name%></h1>
+<table class = "table table-bordered width-table60">
+  <tr>
+    <td>name</td>
+    <td><%= @task.name %></td>
+  </tr>
+  <tr>
+    <td>Kind</td>
+    <td><%= @task.kind %></td>
+  </tr>
+  <tr>
+    <td>Short description</td>
+    <td><%= @task.short_description %></td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <td>Master</td>
+    <td><%= @task.master.full_name %></td>
+  </tr>
+  <tr>
+    <td>Assignee</td>
+    <td><%= @task.assignee.full_name %></td>
+  </tr>
+  <tr>
+    <td>Progress</td>
+    <td><%= progress_bar(@task.progress, color: "blue", :rounded => true, :tiny => true) %></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><%= @task.status %></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to "Back", member_tasks_path, class: "btn btn-primary" %>
+      <%= link_to "Edit", edit_member_task_path(@task), class: "btn btn-primary" %>
+      <% if @task.master == current_user %>
+        <%= link_to "Delete", member_task_path(@task), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this task?" }, title: @task.name %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+

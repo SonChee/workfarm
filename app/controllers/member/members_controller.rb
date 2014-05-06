@@ -22,8 +22,7 @@ class Member::MembersController < Member::BaseMemberController
   private
 
     def user_params
-      params.require(:member).permit(:type, :code, :first_name, :last_name, :email, :password,
-                                   :password_confirmation)
+      params.require(:member).permit User::UPDATABLE_COLUMNS_FOR_MEMBERS
     end
 
     def correct_user

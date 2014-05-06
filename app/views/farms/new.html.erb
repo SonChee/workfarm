@@ -1,0 +1,38 @@
+<% provide(:title, "Create farm") %>
+<h1>Create farm</h1>
+
+<%= form_for [@user, @farm] do |f| %>
+  <%= render "shared/error_messages", object: @farm %>
+  <table class = "table table-bordered width-table80">
+    <tr>
+      <td width = "20%"><%= f.label :name %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_field :name %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_area :description %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :user_id %></td>
+      <td>TODO update late</div></td>
+    </tr>
+    <tr>
+      <td>All user</td>
+      <td>
+        <%= f.fields_for :position_in_farms do |builder|  %>
+          <div>
+            <div class="div-select-position"><%= builder.check_box :user_id, {checked: false}, builder.object.user.id %></div>
+            <div class="div-select-position"><%= link_to builder.object.user.full_name, user_path(builder.object.user) %></div>
+            <div class="div-select-position"><%= builder.select :position, options_for_select([2,3].each{|d| [d,d]}) %></div>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <%= f.hidden_field :parent_farm_id, value: @parent_farm.id if @parent_farm %>
+    <tr>
+      <td colspan="2">
+        <div class="center"><%= f.submit "Create farm", class: "btn btn-primary" , id: "submit"%></div>
+      </td>
+    </tr>
+  </table>
+<% end %>

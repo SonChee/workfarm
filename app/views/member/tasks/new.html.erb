@@ -1,0 +1,26 @@
+<% provide(:title, "Create task") %>
+<h1>Create task</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for [:member, @task] do |f| %>
+      <%= render "shared/error_messages", object: @task %>
+      
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :short_description %>
+      <%= f.text_field :short_description %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.hidden_field :assignee_id, value: current_user.id %>
+      <%= f.hidden_field :taskmaster_id, value: current_user.id %>
+      <%= f.hidden_field :progress, value: 0 %>
+      <%= f.hidden_field :status, value: "Open" %>
+      <%= f.hidden_field :kind, value: "Self" %>
+
+      <%= f.submit "Create task", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

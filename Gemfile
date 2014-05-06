@@ -8,9 +8,11 @@ gem "sass-rails", "~> 4.0.0"
 gem 'bcrypt-ruby', '3.1.2'
 gem "mysql2"
 gem "devise"
+gem 'css3-progress-bar-rails'
+gem 'bootstrap-datetimepicker-rails'
 
 group :development, :test do
-	gem "pry"
+  gem "pry"
   gem 'rspec-rails', '2.13.1'
 end
 

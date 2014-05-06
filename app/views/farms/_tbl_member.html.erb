@@ -1,0 +1,12 @@
+<%= f.fields_for :position_in_farms do |builder|  %>
+  <% unless builder.object.position == 1 %>
+    <div>
+      <div class="div-select-position" >
+        <%= builder.check_box :user_id, {checked: builder.object.checked, class: "position_checkbox"}, builder.object.user.id %>
+        <%= builder.hidden_field :_destroy %>
+      </div>
+      <div class="div-select-position"><%= builder.object.user.full_name %></div>
+      <div class="div-select-position"><%= builder.select :position, options_for_select([2,3].each{|d| [d,d]}, selected: builder.object.position) %></div>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,52 @@
+<% provide(:title, @farm.name) %>
+<h1>Task: <%= @farm.name%></h1>
+<table class = "table table-bordered width-table80">
+  <tr>
+    <td width="150px">Name</td>
+    <td><%= @farm.name %></td>
+  </tr>
+    <td>Description</td>
+    <td><%= @farm.description %></td>
+  </tr>
+  <% if @farm.parent_farm %>
+    <tr>
+      <td>Parent farm</td>
+      <td><%= link_to @farm.parent_farm.name, user_farm_path(@user, @farm.parent_farm) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>Created user</td>
+    <td>TODO update late</td>
+  </tr>
+  <tr>
+    <td>Farm</td>
+    <td>
+      <%= link_to "Create farm", new_user_farm_farm_path(@user, @farm), class: "btn btn-primary" %>
+      <%= link_to "Edit", edit_user_farm_path(@user, @farm), class: "btn btn-primary" %>
+      <%= link_to "Delete", user_farm_path(@user, @farm), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this farm?" }, title: @farm.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>Member</td>
+    <td>
+      <%= link_to "Farm members", user_farm_farm_members_path(@user, @farm), class: "btn btn-primary" %>
+    </td>
+  </tr>
+  <tr>
+    <td>Task</td>
+    <td>
+      <div>
+        <%= link_to "Create task", new_user_farm_task_path(@user, @farm), class: "btn btn-primary" %>
+        <%= link_to "Farm tasks", user_farm_tasks_path(@user, @farm), class: "btn btn-primary" %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div class="text-align-center">
+        <%= link_to "Back", user_farms_path, class: "btn btn-primary" %>
+      </div>
+    </td>
+  </tr>
+</table>
+

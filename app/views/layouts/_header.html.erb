@@ -9,6 +9,23 @@
             <li><%= link_to "Home", root_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Big farm manager <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "All big farm", admin_farms_path %></li>
+              </ul>
+            </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Task manager <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "All tasks", admin_tasks_path %></li>
+                <li><%= link_to "Create task", new_admin_task_path %></li>
+              </ul>
+            </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Users manager <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
@@ -20,10 +37,10 @@
             </li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Account <b class="caret"></b>
+                Account<b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "Profile", admin_admin_path(current_user) %></li>
+                <li><%= link_to "Profile", admin_user_path(current_user) %></li>
                 <li><%= link_to "Settings", edit_admin_admin_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
@@ -31,11 +48,18 @@
                 </li>
               </ul>
             </li>
-          <% end %>
-
-          <% if current_user.class == Member %>
+<!-- Member -->
+          <% elsif current_user.class == Member %>
             <li><%= link_to "Home", root_path %></li>
-            <li><%= link_to "Task manager", "#" %></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Task manager <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "All tasks", member_tasks_path %></li>
+                <li><%= link_to "Create task", new_member_task_path %></li>
+              </ul>
+            </li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
@@ -43,6 +67,33 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "Profile", member_member_path(current_user) %></li>
                 <li><%= link_to "Settings", edit_member_member_path(current_user) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Sign out", signout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+
+          <% else %>
+<!-- User -->
+          <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "All your farms", user_farms_path(current_user) %></li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Task manager <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "All tasks", user_tasks_path(current_user) %></li>
+                <li><%= link_to "Create task", new_user_task_path(current_user) %></li>
+              </ul>
+            </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", user_path(current_user) %></li>
+                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "Sign out", signout_path, method: "delete" %>

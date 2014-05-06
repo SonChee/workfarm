@@ -1,0 +1,8 @@
+<% provide(:title, "Edit task") %>
+<h1>Edit task</h1>
+
+<% if @task.master == current_user %>
+  <%= render "edit_by_master" %>
+<% else %>
+  <%= render "edit_by_assignee" %>
+<% end %>

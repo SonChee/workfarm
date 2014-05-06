@@ -1,11 +1,46 @@
 <% provide(:title, @user.full_name) %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
+<table class = "width-table60">
+  <tr>
+    <td>
+      <div class="text-align-center">
         <%= gravatar_for @user %>
-        <%= @user.full_name %>
-      </h1>
-    </section>
-  </aside>
-</div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <th><%= @user.full_name %></th>
+  </tr>
+</table>
+<table class = "table table-bordered width-table60">
+  <tr>
+    <td>ID</td>
+    <td><%= @user.code %></td>
+  </tr>
+  <tr>
+    <td>Full name</td>
+    <td><%= @user.full_name %></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td><%= @user.address %></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <%= link_to "back to all user", admin_users_path, class: "btn btn-primary" %>
+      <% case @user.type %>
+      <% when "Admin" %>
+        <%= link_to "Edit admin information", edit_admin_admin_path, class: "btn btn-primary" %>
+      <% when "Member" %>
+        <%= link_to "Edit member information", edit_admin_member_path, class: "btn btn-primary" %>
+      <% end %>
+      <% unless @user.type == "Admin" %>
+        <%= link_to "Delete", admin_user_path(@user), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this account?" }, title: @user.full_name %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+

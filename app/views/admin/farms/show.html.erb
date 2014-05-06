@@ -1,0 +1,46 @@
+<% provide(:title, @big_farm.name) %>
+<h1>Task: <%= @big_farm.name%></h1>
+<table class = "table table-bordered width-table80">
+  <tr>
+    <td width="160px">Name</td>
+    <td><%= @big_farm.name %></td>
+  </tr>
+    <td>Description</td>
+    <td><%= @big_farm.description %></td>
+  </tr>
+  <% if @big_farm.parent_farm %>
+    <tr>
+      <td>Parent big_farm</td>
+      <td><%= link_to @big_farm.parent_farm.name, user_farm_path(@user, @big_farm.parent_farm) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>Big farm manager</td>
+    <td>
+      <% @big_farm_managers.each do |position_manager| %>
+        <%= link_to position_manager.user.full_name, admin_user_path(position_manager.user.id) %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Total members in big farm</td>
+    <td>
+      <%= @big_farm.position_in_farms.count %>
+    </td> 
+  </tr>
+  <tr>
+    <td>Farm</td>
+    <td>
+      <%= link_to "Edit", edit_admin_farm_path(@big_farm), class: "btn btn-primary" %>
+      <%= link_to "Delete", admin_farm_path(@big_farm), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this farm?" }, title: @big_farm.name %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div class="text-align-center">
+        <%= link_to "Back", admin_farms_path, class: "btn btn-primary" %>
+      </div>
+    </td>
+  </tr>
+</table>
+

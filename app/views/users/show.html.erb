@@ -1,0 +1,39 @@
+<% provide(:title, @user.full_name) %>
+<table class = "width-table60">
+  <tr>
+    <td>
+      <div class="text-align-center">
+        <%= gravatar_for @user %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <th><%= @user.full_name %></th>
+  </tr>
+</table>
+<table class = "table table-bordered width-table60">
+  <tr>
+    <td>ID</td>
+    <td><%= @user.code %></td>
+  </tr>
+  <tr>
+    <td>Full name</td>
+    <td><%= @user.full_name %></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td><%= @user.address %></td>
+  </tr>
+  <% if current_user?(@user) %>
+	  <tr>
+	    <td colspan="2">
+	      <%= link_to "Edit profile", edit_user_path(current_user), class: "btn btn-primary" %>
+	    </td>
+	  </tr>
+  <% end %>
+</table>
+

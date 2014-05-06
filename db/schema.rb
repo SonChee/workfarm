@@ -11,7 +11,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140322030034) do
+ActiveRecord::Schema.define(version: 20140408044045) do
+
+  create_table "farms", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "user_id"
+    t.string   "parent_farm_id"
+    t.integer  "kind"
+    t.integer  "floor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "position_in_farms", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "farm_id"
+    t.integer  "position"
+    t.integer  "farm_request"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "task_comments", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", force: true do |t|
+    t.string   "name"
+    t.string   "kind"
+    t.string   "short_description"
+    t.string   "description"
+    t.integer  "taskmaster_id"
+    t.integer  "assignee_id"
+    t.string   "status"
+    t.integer  "process"
+    t.datetime "start_date"
+    t.datetime "due_date"
+    t.float    "spent_time"
+    t.float    "estimated_time"
+    t.integer  "farm_id"
+    t.integer  "project_id"
+    t.integer  "target_version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "type"
@@ -26,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140322030034) do
     t.string   "address"
     t.integer  "university_id"
     t.integer  "class_id"
+    t.integer  "current_big_farm_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"

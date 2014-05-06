@@ -1,0 +1,21 @@
+<% provide(:title, "Farm members") %>
+<h1>Add member</h1>
+<%= form_for(@subject) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <p> Name </p>
+  <%= f.text_field :name %>
+
+  <p> Description </p>
+  <%= f.text_field :description %>
+  
+  <aside class="span4">
+    <%= f.fields_for :tasks do |builder| %>
+      <div>
+        <%= builder.text_field :name, placeholder: "Compose name new task..." %>
+      </div>
+    <% end %>
+  </aside>
+  
+  <%= f.submit "Create subject", class: "btn btn-large btn-primary" %>
+<% end %>

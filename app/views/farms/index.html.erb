@@ -1,0 +1,25 @@
+<% provide(:title, "Index") %>
+<h1>All farms</h1>
+<% if @farms.present? %>
+  <table class = "table table-bordered width-table90">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Parent farm</th>
+        <th>Farm manager</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @farms.each do |farm| %>
+        <tr>
+          <td><%= link_to farm.name, user_farm_path(current_user,farm) %></td>
+          <td><%= farm.description %></td>
+          <td><%= link_to farm.parent_farm.name, user_farm_path(current_user, farm.parent_farm) if farm.parent_farm %></td>
+          <td>TODO update late</td>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>We don't have any farms </h3>
+<% end %>

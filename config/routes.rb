@@ -9,11 +9,25 @@ WorkFarm::Application.routes.draw do
   namespace :admin do
     resources :admins
     resources :users
+    resources :members
+    resources :tasks
+    resources :farms
   end
 
   namespace :member do
     resources :members
     resources :tasks
+  end
+  resources :users do
+    resources :tasks
+    resources :projects do
+      resources :tasks
+    end
+    resources :farms do
+      resources :farm_members
+      resources :farms
+      resources :tasks
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

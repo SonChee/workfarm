@@ -1,0 +1,70 @@
+<% provide(:title, "Update farm") %>
+<h1>Update farm</h1>
+
+<%= form_for [@user, @farm] do |f| %>
+  <%= render "shared/error_messages", object: @farm %>
+  <table class = "table table-bordered width-table80">
+    <tr>
+      <td width = "20%"><%= f.label :name %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_field :name %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_area :description %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :user_id %></td>
+      <td>TODO update late</td>
+    </tr>
+    <tr>
+      <td>All member</td>
+      <td>
+        <div id="tbl_member">
+          <%= render "tbl_member", f: f %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Add other user (by email)</td>
+      <td>
+        <% if flash[:error].present? %>
+          <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">x</button><br/>
+            <%= flash[:error] %>
+          </div>
+        <% end %>
+        <div class = "magrin-right-3percent"><%= text_field_tag "other_user_email", "Enter user email" %><%= link_to "add user", "#", class: "btn", id: "btn_add_user" %></div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="center"><%= f.submit "Update farm", class: "btn btn-primary" , id: "submit"%>  <%= link_to "Back", user_farm_path, class: "btn" %></div>
+      </td>
+    </tr>
+  </table>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("form").on("click", ".position_checkbox", function(event) {
+      if ($(this).is(":checked")) 
+        $(this).next("input[type=hidden]").val("0");
+      else 
+        $(this).next("input[type=hidden]").val("1");
+    });
+    $("#btn_add_user").on("click", function(event) {
+      event.preventDefault();
+      $.ajax({
+        type: "PUT",
+        url: "<%= user_farm_path %>",
+        data: {other_user_email: $("#other_user_email").val()},
+        success: function(data){
+          if (data != null){
+            $("#form_edit_big_farm").html(data);
+          }else{
+            alert("error internet ?");
+          }
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,66 @@
+<% provide(:title, @task.name) %>
+<h1>Task: <%= @task.name%></h1>
+<table class = "table table-bordered width-table80">
+  <tr>
+    <td width="150px">Name</td>
+    <td><%= @task.name %></td>
+  </tr>
+  <tr>
+    <td>Kind</td>
+    <td><%= @task.kind %></td>
+  </tr>
+  <tr>
+    <td>Short description</td>
+    <td><%= @task.short_description %></td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td><%= @task.description %></td>
+  </tr>
+  <tr>
+    <td>Master</td>
+    <td><%= @task.master.full_name %></td>
+  </tr>
+  <tr>
+    <td>Assignee</td>
+    <td><%= @task.assignee.full_name %></td>
+  </tr>
+  <tr>
+    <td>Estimated time</td>
+    <td><%= @task.estimated_time %> h</td>
+  </tr>
+  <tr>
+    <td>Start date</td>
+    <td><%= @task.start_date.to_time.strftime('%e %b %Y at %H:%M:%S %p') if @task.start_date %></td>
+  </tr>
+  <tr>
+    <td>Due date</td>
+    <td><%= @task.due_date.to_time.strftime('%e %b %Y at %H:%M:%S %p') if @task.due_date %></td>
+  </tr>
+  <tr>
+    <td>Process</td>
+    <td><%= progress_bar(@task.process, color: "blue", :rounded => true, :tiny => true) %></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><%= @task.status %></td>
+  </tr>
+  <tr>
+    <td>Target version</td>
+    <td><%= @task.target_version %></td>
+  </tr>
+  <tr>
+    <td>Farm or project name</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div class="text-align-center">
+        <%= link_to "Back", admin_tasks_path, class: "btn btn-primary" %>
+        <%= link_to "Edit", edit_admin_task_path(@task), class: "btn btn-primary" %>
+        <%= link_to "Delete", admin_task_path(@task), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this task?" }, title: @task.name %>
+      </div>
+    </td>
+  </tr>
+</table>
+

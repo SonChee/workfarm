@@ -1,1 +1,32 @@
-task page
+<% provide(:title, "Index") %>
+<h1>All tasks</h1>
+<% if @tasks.present? %>
+  <table class = "table table-bordered width-table90">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Short description</th>
+        <th>Kind</th>
+        <th>Task master</th>
+        <th>Task assignee</th>
+        <th>Status</th>
+        <th>Progress</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= link_to task.name, member_task_path(task) %></td>
+          <td><%= task.short_description %></td>
+          <td><%= task.kind %></td>
+          <td><%= task.master.full_name %></td>
+          <td><%= task.assignee.full_name if task.assignee.present? %></td>
+          <td><%= task.status %></td>
+          <td><%= progress_bar(task.progress, color: "blue", :rounded => true, :tiny => true) unless task.status == "Open" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>We don't have any tasks </h3>
+<% end %>
