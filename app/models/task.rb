@@ -17,21 +17,27 @@ class Task < ActiveRecord::Base
   validates :short_description,  presence: true
   validates :description,  presence: true
   validates :estimated_time,  presence: true
+  validates :due_date,  presence: true, :if => :validate_due_date?
+
 
   scope :important_find_by_user_id, ->user_id{where(assignee_id: user_id, kind: "Important")}
   scope :in_process_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "In process")}
   scope :all_task_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "Open").where.not( kind: "Important")}
-  class << self
 
+  def validate_due_date?
+     self.farm_id.present?
+  end
+  def save_tasks task_params, assignee_ids
+    assignee_ids.each do |assignee_id|
+      task = Task.new
+      task.attributes =  task_params
+      task.assignee_id = assignee_id
+      task.save
+    end
+  end
+  class << self
     def list_kinds user_type
-      if user_type == "Admin"
-        list_kinds = ["Important","Normal","Self"]
-      elsif user_type == "Member"
-        list_kinds = ["Self"]
-      else
-        list_kinds = ["Self"]
-      end
-        
+      list_kinds = ["Important","Normal"]
     end
 
     def list_status 

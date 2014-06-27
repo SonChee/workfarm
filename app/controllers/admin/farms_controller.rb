@@ -13,6 +13,9 @@ class Admin::FarmsController < Admin::BaseAdminController
   def create
     @farm = Farm.new(farm_params)
     if @farm.save
+      @farm.position_in_farms.each do |position_in_farm|
+        position_in_farm.update_attributes(big_farm_id: @farm.id)
+      end
       flash[:success] = "Created success"
       redirect_to admin_farms_path 
     else

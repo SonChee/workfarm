@@ -20,15 +20,24 @@
       <td>All user</td>
       <td>
         <%= f.fields_for :position_in_farms do |builder|  %>
-          <div>
-            <div class="div-select-position"><%= builder.check_box :user_id, {checked: false}, builder.object.user.id %></div>
-            <div class="div-select-position"><%= link_to builder.object.user.full_name, user_path(builder.object.user) %></div>
-            <div class="div-select-position"><%= builder.select :position, options_for_select([2,3].each{|d| [d,d]}) %></div>
-          </div>
+          <% unless builder.object.user.id == current_user.id %>
+            <div>
+              <div class="div-select-position"><%= builder.check_box :user_id, {checked: false}, builder.object.user.id %></div>
+              <div class="div-select-position"><%= link_to builder.object.user.full_name, user_path(builder.object.user) %></div>
+              <div class="div-select-position"><%= builder.select :position, options_for_select([2,3].each{|d| [d,d]}) %></div>
+              <%= builder.hidden_field :big_farm_id, value: current_user.current_big_farm_id %>
+            </div>
+          <% else %>
+              <%= builder.hidden_field :user_id, value: current_user.id %>
+              <%= builder.hidden_field :position, value: 1 %>
+              <%= builder.hidden_field :big_farm_id, value: current_user.current_big_farm_id %>
+          <% end %>
         <% end %>
       </td>
     </tr>
     <%= f.hidden_field :parent_farm_id, value: @parent_farm.id if @parent_farm %>
+    <%= f.hidden_field :big_farm_id, value: current_user.current_big_farm_id  %>
+    <%= f.hidden_field :kind, value: 2 %>
     <tr>
       <td colspan="2">
         <div class="center"><%= f.submit "Create farm", class: "btn btn-primary" , id: "submit"%></div>

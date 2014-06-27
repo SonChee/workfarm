@@ -1,5 +1,5 @@
 <% provide(:title, @farm.name) %>
-<h1>Task: <%= @farm.name%></h1>
+<h1>Farm: <%= @farm.name%></h1>
 <table class = "table table-bordered width-table80">
   <tr>
     <td width="150px">Name</td>
@@ -19,24 +19,32 @@
     <td>TODO update late</td>
   </tr>
   <tr>
-    <td>Farm</td>
-    <td>
-      <%= link_to "Create farm", new_user_farm_farm_path(@user, @farm), class: "btn btn-primary" %>
-      <%= link_to "Edit", edit_user_farm_path(@user, @farm), class: "btn btn-primary" %>
-      <%= link_to "Delete", user_farm_path(@user, @farm), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this farm?" }, title: @farm.name %>
-    </td>
-  </tr>
-  <tr>
     <td>Member</td>
     <td>
-      <%= link_to "Farm members", user_farm_farm_members_path(@user, @farm), class: "btn btn-primary" %>
+      <% @farm.users.each do |member| %>
+        <div>
+          <%= member.full_name %>
+        </div>
+      <% end %>
     </td>
   </tr>
+  <% if @manager %>
+    <tr>
+      <td>Farm</td>
+      <td>
+        <%= link_to "Create farm", new_user_farm_farm_path(@user, @farm), class: "btn btn-primary" %>
+        <%= link_to "Edit", edit_user_farm_path(@user, @farm), class: "btn btn-primary" %>
+        <%= link_to "Delete", user_farm_path(@user, @farm), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this farm?" }, title: @farm.name %>
+      </td>
+    </tr>
+  <% end %>
   <tr>
     <td>Task</td>
     <td>
       <div>
-        <%= link_to "Create task", new_user_farm_task_path(@user, @farm), class: "btn btn-primary" %>
+        <% if @manager || @leader %>
+          <%= link_to "Create task", new_user_farm_task_path(@user, @farm), class: "btn btn-primary" %>
+        <% end %>
         <%= link_to "Farm tasks", user_farm_tasks_path(@user, @farm), class: "btn btn-primary" %>
       </div>
     </td>

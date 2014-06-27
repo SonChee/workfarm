@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140408044045) do
     t.string   "parent_farm_id"
     t.integer  "kind"
     t.integer  "floor"
+    t.integer  "big_farm_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,7 +29,8 @@ ActiveRecord::Schema.define(version: 20140408044045) do
     t.integer  "user_id"
     t.integer  "farm_id"
     t.integer  "position"
-    t.integer  "farm_request"
+    t.integer  "farm_request", default: 0, null: false
+    t.integer  "big_farm_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

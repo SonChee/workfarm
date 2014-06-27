@@ -4,7 +4,8 @@ class CreatePositionInFarms < ActiveRecord::Migration
       t.integer :user_id
       t.integer :farm_id
       t.integer :position
-      t.integer :farm_request
+      t.integer :farm_request, null: false, default: 0
+      t.integer :big_farm_id
 
       t.timestamps
     end

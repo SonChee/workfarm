@@ -48,22 +48,34 @@
       </div>
     </td>
   </tr>
-  <tr>
-    <td><%= f.label :assignee %></td>
-    <td><div><%= f.select :assignee_id, options_for_select(User.all.map{|user| [user.full_name,user.id]}), include_blank: "Choise assignee" %></div></td>
-  </tr>
-  <tr>
-    <td><%= f.label :kind %></td>
-    <td><div><%= f.select :kind, options_for_select(Task.list_kinds(current_user.type).each{|d| [d,d]}), include_blank: "Choise kind of task" %></div></td>
-  </tr>
-  <tr>
-    <td><%= f.label :target_version %></td>
-    <td><div class = "magrin-right-3percent"><%= f.text_field :target_version %></div></td>
-  </tr>
+  <% if @farm %>
+    <tr>
+      <td><%= f.label :assignee %></td>
+      <td>
+        <% @farm.users.each do |user| %>
+          <div>
+            <%= check_box_tag "assignee_ids[]", user.id %>
+            <%= user.full_name %>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :kind %></td>
+      <td><div><%= f.select :kind, options_for_select(Task.list_kinds(current_user.type).each{|d| [d,d]}), include_blank: "Choise kind of task" %></div></td>
+    </tr>
+    <tr>
+      <td><%= f.label :target_version %></td>
+      <td><div class = "magrin-right-3percent"><%= f.text_field :target_version %></div></td>
+    </tr>
+    <%= f.hidden_field :farm_id, value: @farm.id %>
+  <% else %>
+    <%= f.hidden_field :kind, value: "Self" %>
+    <%= f.hidden_field :assignee_id, value: current_user.id %>
+  <% end %>
   <%= f.hidden_field :taskmaster_id, value: current_user.id %>
   <%= f.hidden_field :process, value: 0 %>
   <%= f.hidden_field :status, value: "Open" %>
-  <%= f.hidden_field :farm_id, value: params[:farm_id] if params[:farm_id] %>
   <tr>
     <td colspan="2">
       <div class="center"><%= f.submit "Create task", class: "btn btn-primary" , id: "submit"%></div>

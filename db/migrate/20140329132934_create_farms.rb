@@ -7,6 +7,7 @@ class CreateFarms < ActiveRecord::Migration
       t.string :parent_farm_id
       t.integer :kind
       t.integer :floor
+      t.integer :big_farm_id
 
       t.timestamps
     end

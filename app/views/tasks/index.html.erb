@@ -11,12 +11,29 @@
         <th>Task assignee</th>
         <th>Status</th>
         <th>Process</th>
+        <th>Deadline</th>
       </tr>
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
-        <tr>
-          <td><%= link_to task.name, user_task_path(@user,task) %></td>
+        <% if task.due_date.present? %>
+          <% if Time.now > task.due_date %>
+            <tr class="red-background">
+          <% else %>
+            <% if Time.now - task.due_date < 3600 %>
+              <tr class="yellow-background">
+            <% else %>
+              <tr>
+            <% end %>
+          <% end %>
+        <% else %>
+          <tr>
+        <% end %>
+          <% if @farm %>
+            <td><%= link_to task.name, user_farm_task_path(@user, @farm, task) %></td>
+          <% else %>
+            <td><%= link_to task.name, user_task_path(@user,task) %></td>
+          <% end %>
           <td><%= task.short_description %></td>
           <td><%= task.kind %></td>
           <td><%= task.master.full_name %></td>
@@ -25,9 +42,12 @@
           <td>
             <% if task.process < 50 %>
               <%= progress_bar(task.process, color: "blue", :rounded => true, :tiny => true) unless task.status == "Open" %>
-              <% else %>
-                <%= progress_bar(task.process, color: "orange", :rounded => true, :tiny => true) %>
-              <% end %>
+            <% else %>
+              <%= progress_bar(task.process, color: "orange", :rounded => true, :tiny => true) %>
+            <% end %>
+          </td>
+          <td>
+
           </td>
         </tr>
       <% end %>

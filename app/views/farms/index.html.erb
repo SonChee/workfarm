@@ -1,6 +1,6 @@
 <% provide(:title, "Index") %>
 <h1>All farms</h1>
-<% if @farms.present? %>
+<% if @position_in_farms.present? %>
   <table class = "table table-bordered width-table90">
     <thead>
       <tr>
@@ -11,15 +11,41 @@
       </tr>
     </thead>
     <tbody>
-      <% @farms.each do |farm| %>
+      <% @position_in_farms.each do |position_in_farm| %>
         <tr>
-          <td><%= link_to farm.name, user_farm_path(current_user,farm) %></td>
-          <td><%= farm.description %></td>
-          <td><%= link_to farm.parent_farm.name, user_farm_path(current_user, farm.parent_farm) if farm.parent_farm %></td>
+          <td><%= link_to position_in_farm.farm.name, user_farm_path(current_user,position_in_farm.farm) %></td>
+          <td><%= position_in_farm.farm.description %></td>
+          <td><%= link_to position_in_farm.farm.parent_farm.name, user_farm_path(current_user, position_in_farm.farm.parent_farm) if position_in_farm.farm.parent_farm %></td>
           <td>TODO update late</td>
       <% end %>
     </tbody>
   </table>
 <% else %>
   <h3>We don't have any farms </h3>
+<% end %>
+
+<% if @farm_requests.present? %>
+  <h1>All requests</h1>
+  <table class = "table table-bordered width-table90">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Parent farm</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @farm_requests.each do |farm_request| %>
+        <tr>
+          <td><%= link_to farm_request.farm.name, user_farm_path(current_user,farm_request.farm) %></td>
+          <td><%= farm_request.farm.description %></td>
+          <td><%= link_to farm_request.farm.parent_farm.name, user_farm_path(current_user, farm_request.farm.parent_farm) if farm_request.farm.parent_farm %></td>
+          <td>
+            <%= link_to "accept", user_farms_path(farm_request_id: farm_request.id, accept: true), class:"btn" %>
+            <%= link_to "remove", user_farms_path(farm_request_id: farm_request.id, accept: false), class:"btn" %>
+          </td>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>

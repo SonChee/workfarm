@@ -32,12 +32,12 @@ task_list.each do |task|
 end
 
 farm_list = [
-  ["Big farm test", "Big farm from file seed", 1, 1],
-  ["Farm Demo 2", "Farm from file seed", 1, 2, 1]
+  ["Big farm test", "Big farm from file seed", 1, 1, ],
+  ["Farm Demo 2", "Farm from file seed", 1, 2, 1, 1]
 ]
 farm_list.each do |farm|
-  Farm.create(name: farm[0], description: farm[1], user_id: farm[2], kind: farm[3], parent_farm_id: farm[4] )
+  Farm.create(name: farm[0], description: farm[1], user_id: farm[2], kind: farm[3], parent_farm_id: farm[4], big_farm_id: farm[5] )
 end
 
-PositionInFarm.create(user_id: 2, farm_id: 1, position: 1, farm_request: 1)
-PositionInFarm.create(user_id: 2, farm_id: 2, position: 1)
+PositionInFarm.create(user_id: 2, farm_id: 1, position: 1, farm_request: 1, big_farm_id: 1)
+PositionInFarm.create(user_id: 2, farm_id: 2, position: 1, big_farm_id: 1)

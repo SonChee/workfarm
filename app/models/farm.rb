@@ -1,9 +1,11 @@
 class Farm < ActiveRecord::Base
   CREATE_COLUMNS_FOR_USERS = [:name, :kind, :description, :user_id, 
-    :parent_farm_id, position_in_farms_attributes: [:id, :user_id, :farm_id, :position, :_destroy]]
+    :parent_farm_id, :big_farm_id, position_in_farms_attributes: [:id, :user_id, :farm_id, :position, :big_farm_id, :_destroy]]
 
   has_many :child_farm, class_name: "Farm", foreign_key: :parent_farm_id, dependent: :destroy
   belongs_to :parent_farm, class_name: "Farm", foreign_key: :parent_farm_id
+  has_many :small_farm, class_name: "Farm", foreign_key: :big_farm_id, dependent: :destroy
+  belongs_to :big_farm, class_name: "Farm", foreign_key: :big_farm_id
   has_many :tasks, dependent: :destroy
   has_many :users, through: :position_in_farms
   has_many :position_in_farms, dependent: :destroy
