@@ -1,7 +1,7 @@
 <% if signed_in? %>
   <% inprocess_tasks = Task.in_process_find_by_user_id(current_user.id) %>
-  <% important_tasks = Task.important_find_by_user_id(current_user.id) %>
-  <% all_tasks = Task.all_task_find_by_user_id(current_user.id) %>
+  <% important_tasks = Task.important_open_find_by_user_id(current_user.id) %>
+  <% all_tasks = Task.all_task_open_find_by_user_id(current_user.id) %>
   <div class="well sidebar-nav">
     <!-- Categories -->
     <div class="box categories">

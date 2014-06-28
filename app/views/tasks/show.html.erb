@@ -61,12 +61,20 @@
       <div class="text-align-center">
         <% if @farm %>
           <%= link_to "Back", user_farm_tasks_path(@user, @farm), class: "btn btn-primary" %>
+          <% if @task_master || @farm_leader || @task_assignee %>
+            <%= link_to "Edit", edit_user_farm_task_path(@user, @farm, @task), class: "btn btn-primary" %>
+            <% if @task_master || @farm_leader %>
+              <%= link_to "Delete", user_farm_task_path(@user, @farm, @task), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this task?" }, title: @task.name %>
+            <% end %>
+          <% end %>
         <% else %>
           <%= link_to "Back", user_tasks_path, class: "btn btn-primary" %>
-        <% end %>
-        <% if @task_master || @task_assignee %>
-          <%= link_to "Edit", edit_user_task_path(@user, @task), class: "btn btn-primary" %>
-          <%= link_to "Delete", user_task_path(@user, @task), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this task?" }, title: @task.name %>
+          <% if @task_master || @task_assignee %>
+            <%= link_to "Edit", edit_user_task_path(@user, @task), class: "btn btn-primary" %>
+            <% if @task_master %>
+              <%= link_to "Delete", user_task_path(@user, @task), method: :delete, class: "btn btn-primary", data: { confirm: "You sure to delete this task?" }, title: @task.name %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     </td>

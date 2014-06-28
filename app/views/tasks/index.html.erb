@@ -1,6 +1,7 @@
 <% provide(:title, "Index") %>
 <h1>All tasks</h1>
 <% if @tasks.present? %>
+  <%= will_paginate %>
   <table class = "table table-bordered width-table90">
     <thead>
       <tr>
@@ -17,10 +18,10 @@
     <tbody>
       <% @tasks.each do |task| %>
         <% if task.due_date.present? %>
-          <% if Time.now > task.due_date %>
+          <% if Time.now > task.due_date && !task.task_finish? %>
             <tr class="red-background">
           <% else %>
-            <% if Time.now - task.due_date < 3600 %>
+            <% if task.due_date - Time.now < 3600 && !task.task_finish?%>
               <tr class="yellow-background">
             <% else %>
               <tr>
@@ -47,12 +48,13 @@
             <% end %>
           </td>
           <td>
-
+            <%= task.due_date %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= will_paginate %>
 <% else %>
   <h3>We don't have any tasks </h3>
 <% end %>

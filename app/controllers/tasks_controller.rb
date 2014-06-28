@@ -4,11 +4,11 @@ class TasksController < ::AuthenticatableController
     if params[:farm_id]
       @user = User.find(params[:user_id])
       @farm = Farm.find(params[:farm_id])
-      @tasks = @farm.tasks
+      @tasks = @farm.tasks.order_by_created_at.paginate page: params[:page] , per_page: 15
     else
     	@user = User.find(params[:user_id])
       #TODO fix list task with authenticate
-      @tasks = @user.assign_tasks
+      @tasks = @user.assign_tasks.order_by_created_at.paginate page: params[:page] , per_page: 15
     end
   end
 
@@ -45,11 +45,18 @@ class TasksController < ::AuthenticatableController
     @task = Task.find(params[:id])
     @task_master = true if @task.taskmaster_id == current_user.id
     @task_assignee = true if @task.assignee_id == current_user.id
+    if @task.try(:farm).try(:leaders)
+      @farm_leader = true if @task.try(:farm).try(:leaders).include? current_user
+    end
   end
 
   def edit
   	@user = User.find(params[:user_id])
     @task = Task.find(params[:id])
+    @farm = Farm.find_by(id: params[:farm_id])
+    if @task.try(:farm).try(:leaders)
+      @farm_leader = true if @task.try(:farm).try(:leaders).include? current_user
+    end
   end
 
   def update

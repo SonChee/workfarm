@@ -19,13 +19,17 @@ class Task < ActiveRecord::Base
   validates :estimated_time,  presence: true
   validates :due_date,  presence: true, :if => :validate_due_date?
 
-
+  scope :order_by_created_at, ->{order("created_at DESC")}
   scope :important_find_by_user_id, ->user_id{where(assignee_id: user_id, kind: "Important")}
+  scope :important_open_find_by_user_id, ->user_id{where(assignee_id: user_id, kind: "Important", status: ["Open","In process"])}
   scope :in_process_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "In process")}
-  scope :all_task_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "Open").where.not( kind: "Important")}
+  scope :all_task_open_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "Open").where.not( kind: "Important")}
 
   def validate_due_date?
      self.farm_id.present?
+  end
+  def task_finish?
+    self.status == "Resolved" || self.status == "Closed"
   end
   def save_tasks task_params, assignee_ids
     assignee_ids.each do |assignee_id|
@@ -42,6 +46,9 @@ class Task < ActiveRecord::Base
 
     def list_status 
       list_kinds = ["Open","In process","Resolved","Closed"]
+    end
+    def list_assignee_status 
+      list_kinds = ["Open","In process","Resolved"]
     end
   end
 end

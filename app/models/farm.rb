@@ -10,6 +10,9 @@ class Farm < ActiveRecord::Base
   has_many :users, through: :position_in_farms
   has_many :position_in_farms, dependent: :destroy
   accepts_nested_attributes_for :position_in_farms, allow_destroy: true, reject_if: ->attrs{attrs["user_id"] == "0"}
+  
+  has_many :leader_in_farms, -> { where position: [1,2] }, class_name: 'PositionInFarm'
+  has_many :leaders, through: :leader_in_farms, class_name: "User", :source => :user
 
   validates :name,  presence: true
   validates :description,  presence: true
