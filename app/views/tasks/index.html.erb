@@ -45,8 +45,8 @@
           <% end %>
           <td><%= task.short_description %></td>
           <td><%= task.kind %></td>
-          <td><%= task.master.full_name %></td>
-          <td><%= task.assignee.full_name if task.assignee.present? %></td>
+          <td><%= link_to task.try(:master).try(:full_name), user_path(task.try(:master)) if task.try(:master).present? %></td>
+          <td><%= link_to task.try(:assignee).try(:full_name), user_path(task.try(:assignee)) if task.try(:assignee).present? %></td>
           <td><%= task.status %></td>
           <td>
             <% if task.process < 50 %>

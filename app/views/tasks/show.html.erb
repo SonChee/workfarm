@@ -19,11 +19,11 @@
   </tr>
   <tr>
     <td>Master</td>
-    <td><%= @task.master.full_name %></td>
+    <td><%= @task.try(:master).try(:full_name) %></td>
   </tr>
   <tr>
     <td>Assignee</td>
-    <td><%= @task.assignee.full_name %></td>
+    <td><%= @task.try(:assignee).try(:full_name) %></td>
   </tr>
   <tr>
     <td>Estimated time</td>

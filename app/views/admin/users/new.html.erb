@@ -27,7 +27,7 @@
       <%= f.text_field :address %>
 
       <%= f.label :type %>
-      <%= f.select :type, options_for_select(User.list_types(current_user.type).each{|d| [d,d]}), include_blank: "Choise user type" %>
+      <%= f.select :type, options_for_select(User.list_types(current_user.type).each{|d| [d,d]}), include_blank: "User type blank" %>
 
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
