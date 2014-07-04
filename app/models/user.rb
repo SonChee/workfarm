@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   
   has_many :master_tasks, class_name: "Task" ,foreign_key: :taskmaster_id
   has_many :assign_tasks, class_name: "Task" ,foreign_key: :assignee_id
-  has_many :position_in_farms
+  has_many :position_in_farms, dependent: :destroy
   has_many :farms, through: :position_in_farms
   belongs_to :big_farm, class_name: "Farm" ,foreign_key: :current_big_farm_id
 
