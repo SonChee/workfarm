@@ -1,10 +1,27 @@
 <% provide(:title, 'Home') %>
 <div class="center hero-unit">
-  <h1>Welcome to the Work Farm</h1>
-
-  <h2>
-    This is the home page for the work farm application.
-  </h2>
+	<% if signed_in? %>
+    <h1>
+      Hi <%= current_user.full_name %>, 
+      <% case Time.now.hour %>
+      <% when 1..12 %>
+        have nice day.
+      <% when 13..16 %>
+        now is time for you.
+      <% else %>
+        try best for you.
+      <% end %>
+    </h1>
+    <h2>
+      S2B is your home ^^! </br>
+      work farm is your garden :)
+    </h2>
+  <% else %>
+    <h1>Welcome to the Work Farm</h1>
+    <h2>
+      This is the home page for the work farm application.
+    </h2>
+  <% end %>
   <% unless signed_in? %>
     <%= link_to "Sign in to work farm now!", signin_path, class: "btn btn-large btn-primary" %>
   <% end %>
