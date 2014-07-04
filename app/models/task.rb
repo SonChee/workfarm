@@ -41,7 +41,7 @@ class Task < ActiveRecord::Base
   end
   class << self
     def list_kinds user_type
-      list_kinds = ["Important","Normal"]
+      list_kinds = ["Important","Normal", "Self"]
     end
 
     def list_status 

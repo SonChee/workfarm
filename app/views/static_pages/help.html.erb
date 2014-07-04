@@ -1,2 +1,15 @@
-<h1>StaticPages#help</h1>
-<p>Find me in app/views/static_pages/help.html.erb</p>
+<% if signed_in? %>
+    <h1>
+      Hi <%= current_user.full_name %>, what is your problem ?
+    </h1>
+    <h2>
+      You are S2B'er, you can do it. Don't worry, just open google.com and search everything you want. ^^! 
+      </br>
+      Try your best.
+    </h2>
+  <% else %>
+    <h1>Hi, what do you want ?</h1>
+    <h2>
+      If you want to support or have question, you can contact admin by admin@gmail.com. Thanks
+    </h2>
+  <% end %>

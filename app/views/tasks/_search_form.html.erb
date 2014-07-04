@@ -7,44 +7,46 @@
       </td>
       <td class="td-width-10percent">Task kind</td>
       <td class="td-width-23percent">
-        <%= f.text_field :kind_cont %>
+        <%= f.select :kind_eq, options_for_select(Task.list_kinds(current_user.type).each{|d| [d,d]}, selected: (params[:q][:kind_eq] if params[:q])), include_blank: true %>
       </td>
     </tr>
     <tr>
       <td class="td-width-10percent">Master first name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :master_first_name_cont %>
+        <%= f.text_field :master_first_name_cont, value: (params[:q][:master_first_name_cont] if params[:q]) %>
       </td>
       <td class="td-width-10percent">Master last name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :master_last_name_cont %>
+        <%= f.text_field :master_last_name_cont, value: (params[:q][:master_last_name_cont] if params[:q]) %>
       </td>
     </tr>
     <tr>
       <td class="td-width-10percent">Assignee first name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :assignee_first_name_cont %>
+        <%= f.text_field :assignee_first_name_cont, value: (params[:q][:assignee_first_name_cont] if params[:q]) %>
       </td>
       <td class="td-width-10percent">Assignee last name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :assignee_last_name_cont %>
+        <%= f.text_field :assignee_last_name_cont, value: (params[:q][:assignee_last_name_cont] if params[:q]) %>
       </td>
     </tr>
     <tr>
       <td class="td-width-10percent">Due date great than</td>
       <td class="td-width-23percent">
-        <%= f.text_field :due_date_gt, placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.yesterday.day.to_s %>
+        <%= f.text_field :due_date_gt, value: (params[:q][:due_date_gt] if params[:q]), placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.yesterday.day.to_s %>
       </td>
       <td class="td-width-10percent">Due date less than</td>
       <td class="td-width-23percent">
-        <%= f.text_field :due_date_lt, placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.tomorrow.day.to_s %>
+        <%= f.text_field :due_date_lt, value: (params[:q][:due_date_lt] if params[:q]), placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.tomorrow.day.to_s %>
       </td>
     </tr>
     <tr>
       <td class="td-width-10percent">Status</td>
-      <td class="td-width-23percent" colspan="3">
-        <%= f.select :status_eq, options_for_select(Task.list_status.each{|d| [d,d]}),include_blank: true %>
+      <td class="td-width-23percent">
+        <%= f.select :status_eq, options_for_select(Task.list_status.each{|d| [d,d]}, selected: (params[:q][:status_eq] if params[:q])),include_blank: true %>
       </td>
+      <td class="td-width-10percent"></td>
+      <td class="td-width-23percent"></td>
     </tr>
     <tr>
       <td colspan="4">
