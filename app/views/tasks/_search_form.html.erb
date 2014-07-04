@@ -1,0 +1,57 @@
+<%= search_form_for [@user, @farm, @q], method: :get, html: {id: "search-form", class: "search-form #{params[:q] ? "show" : "hide"}"} do |f| %>
+  <table class="table table-bordered">
+    <tr>
+      <td class="td-width-10percent">Task name</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :name_cont %>
+      </td>
+      <td class="td-width-10percent">Task kind</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :kind_cont %>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-width-10percent">Master first name</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :master_first_name_cont %>
+      </td>
+      <td class="td-width-10percent">Master last name</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :master_last_name_cont %>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-width-10percent">Assignee first name</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :assignee_first_name_cont %>
+      </td>
+      <td class="td-width-10percent">Assignee last name</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :assignee_last_name_cont %>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-width-10percent">Due date great than</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :due_date_gt, placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.yesterday.day.to_s %>
+      </td>
+      <td class="td-width-10percent">Due date less than</td>
+      <td class="td-width-23percent">
+        <%= f.text_field :due_date_lt, placeholder: Time.now.year.to_s + "-" +Time.now.month.to_s + "-" + Date.tomorrow.day.to_s %>
+      </td>
+    </tr>
+    <tr>
+      <td class="td-width-10percent">Status</td>
+      <td class="td-width-23percent" colspan="3">
+        <%= f.select :status_eq, options_for_select(Task.list_status.each{|d| [d,d]}),include_blank: true %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <div class="text-align-center">
+          <%= f.submit "Go", class: "btn btn-primary", id: "btn_search" %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

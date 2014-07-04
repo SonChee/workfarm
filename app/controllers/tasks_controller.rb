@@ -4,11 +4,15 @@ class TasksController < ::AuthenticatableController
     if params[:farm_id]
       @user = User.find(params[:user_id])
       @farm = Farm.find(params[:farm_id])
-      @tasks = @farm.tasks.order_by_created_at.paginate page: params[:page] , per_page: 15
+      @q = @farm.tasks.search params[:q]
+      @q.build_sort if @q.sorts.empty?
+      @tasks = @q.result.order_by_created_at.paginate page: params[:page] , per_page: 15
     else
     	@user = User.find(params[:user_id])
       #TODO fix list task with authenticate
-      @tasks = @user.assign_tasks.order_by_created_at.paginate page: params[:page] , per_page: 15
+      @q = @user.assign_tasks.search params[:q]
+      @q.build_sort if @q.sorts.empty?
+      @tasks = @q.result.order_by_created_at.paginate page: params[:page] , per_page: 15
     end
   end
 
@@ -24,6 +28,7 @@ class TasksController < ::AuthenticatableController
     if params[:assignee_ids]
       @task.assignee_id = 0
       if @task.valid?
+        flash[:success] = "Created tasks success"
         @task.save_tasks(task_params, params[:assignee_ids])
         redirect_to user_farm_tasks_path(current_user.id, @farm.id)
       else
@@ -31,8 +36,8 @@ class TasksController < ::AuthenticatableController
       end
     else 
       if @task.save
-      flash[:success] = "Created success"
-      redirect_to user_tasks_path
+      flash[:success] = "Created task success"
+      redirect_to user_task_path(current_user, @task)
       else
         render action: :new
       end

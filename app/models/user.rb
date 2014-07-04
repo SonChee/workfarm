@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   CREATE_COLUMNS_FOR_ADMINS = [:type, :code, :first_name, :last_name, :email, :password, 
     :password_confirmation, :address]
   UPDATABLE_COLUMNS_FOR_ADMINS = [:type, :code, :first_name, :last_name, :email, :address]
-  UPDATABLE_COLUMNS_FOR_USERS = [:type, :code, :first_name, :last_name, :email, :address]
+  UPDATABLE_COLUMNS_FOR_USERS = [:type, :code, :first_name, :last_name, :email, :password, 
+    :password_confirmation, :address]
 
 	before_save { self.email = email.downcase }
   before_create :create_remember_token

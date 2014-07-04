@@ -1,8 +1,16 @@
 <% provide(:title, "Index") %>
 <h1>All tasks</h1>
+<div>
+  <%= link_to "Search", "#", class: "search-form-toggle btn", "data-target" => "search-form" %>
+  <%= link_to "Back to " + @farm.name, user_farm_path(current_user, @farm) , class: "btn" if @farm.present?%>
+</div>
+</br>
+<div id="search">
+  <%= render "search_form" %>
+</div>
 <% if @tasks.present? %>
   <%= will_paginate %>
-  <table class = "table table-bordered width-table90">
+  <table class = "table table-bordered">
     <thead>
       <tr>
         <th>Name</th>
@@ -48,7 +56,7 @@
             <% end %>
           </td>
           <td>
-            <%= task.due_date %>
+            <%= task.due_date.try(:to_time).try(:strftime, "%e/%m/%Y at %H:%M:%S %p") %>
           </td>
         </tr>
       <% end %>

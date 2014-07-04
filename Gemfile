@@ -12,6 +12,7 @@ gem 'css3-progress-bar-rails'
 gem 'bootstrap-datetimepicker-rails'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
+gem "ransack"
 
 group :development, :test do
   gem "pry"

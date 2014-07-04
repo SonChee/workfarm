@@ -12,11 +12,17 @@ class UsersController < ::AuthenticatableController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to user_path @user
+    confirm_password = User.find(params[:id]).try(:authenticate, params[:user][:current_password])
+    if confirm_password
+      if @user.update_attributes(user_params)
+        flash[:success] = "Profile updated"
+        redirect_to user_path @user
+      else
+        render action: :edit
+      end
     else
-      render 'edit'
+      @user.errors.messages[:current_password] = ["is wrong"]
+      render action: :edit
     end
   end
 
