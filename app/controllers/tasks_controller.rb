@@ -45,13 +45,23 @@ class TasksController < ::AuthenticatableController
   end
 
   def show
+    @task = Task.find(params[:id])
     @user = User.find(params[:user_id])
     @farm = Farm.find_by(id: params[:farm_id])
-    @task = Task.find(params[:id])
     @task_master = true if @task.taskmaster_id == current_user.id
     @task_assignee = true if @task.assignee_id == current_user.id
+    if @farm.present?
+      @farm_user = true if @farm.users.include? current_user
+    end
     if @task.try(:farm).try(:leaders)
       @farm_leader = true if @task.try(:farm).try(:leaders).include? current_user
+    end
+    if request.xhr?
+      comment = Comment.new(user_id: params[:user_id], task_id: params[:id], comment: params[:comment])
+      if comment.valid?
+        comment.save
+      end
+      render partial: "tb_comment"
     end
   end
 

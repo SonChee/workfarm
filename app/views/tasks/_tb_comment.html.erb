@@ -1,0 +1,16 @@
+<% @task.comments.each do |comment| %>
+  <table class = "table table-bordered width-table80">
+    <thead>
+      <tr>
+        <th class="table_header"><%= comment.try(:user).try(:full_name) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <td>
+        <%= comment.comment %>
+        </br>
+        <i><%= @task.updated_at.try(:strftime, "%e/%m/%Y at %H:%M:%S %p") %></i>
+      </td>
+    </tbody>
+  </table>
+<% end %>

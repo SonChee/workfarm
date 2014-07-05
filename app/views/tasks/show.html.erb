@@ -80,4 +80,13 @@
     </td>
   </tr>
 </table>
+<div id="tb_index">
+  <%= render "tb_comment" %>
+</div>
+<% if @task_master || @task_assignee || @farm_user %>
+  <div id="add_comment">
+    <%= render "add_comment" %>
+  </div>
+<% end %>
+
 

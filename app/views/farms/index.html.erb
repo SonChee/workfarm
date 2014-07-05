@@ -7,7 +7,7 @@
         <th class="table_header">Name</th>
         <th class="table_header">Description</th>
         <th class="table_header">Parent farm</th>
-        <th class="table_header">Farm manager</th>
+        <th class="table_header">Farm task</th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
           <td><%= link_to position_in_farm.farm.name, user_farm_path(current_user,position_in_farm.farm) %></td>
           <td><%= position_in_farm.farm.description %></td>
           <td><%= link_to position_in_farm.farm.parent_farm.name, user_farm_path(current_user, position_in_farm.farm.parent_farm) if position_in_farm.farm.parent_farm %></td>
-          <td>TODO update late</td>
+          <td><%= link_to "Farm tasks", user_farm_tasks_path(@user, position_in_farm.farm) %></td>
       <% end %>
     </tbody>
   </table>
