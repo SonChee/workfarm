@@ -15,7 +15,9 @@
   </tr>
   <tr>
     <td>Description</td>
-    <td><%= @task.description.gsub(/\r\n?/,"<br/>").html_safe if @task.try(:description).present? %></td>
+    <td>
+      <%= @task.description.gsub(/\r\n?/,"<br/>").html_safe if @task.try(:description).present? %>
+    </td>
   </tr>
   <tr>
     <td>Master</td>
