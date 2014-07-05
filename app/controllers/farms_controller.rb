@@ -3,6 +3,7 @@ class FarmsController < ::AuthenticatableController
   before_action :correct_manager,   only: [:edit, :update]
 
   def index
+    @user = User.find(params[:user_id])
     if params[:accept].present?
       farm_request = PositionInFarm.find_by(id: params[:farm_request_id])
       if farm_request.present?

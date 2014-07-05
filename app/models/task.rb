@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   belongs_to :master, class_name: "User", foreign_key: :taskmaster_id
   belongs_to :assignee, class_name: "User", foreign_key: :assignee_id
   belongs_to :farm
+  has_many :comments
   
   validates :name,  presence: true
   validates :kind,  presence: true
@@ -24,7 +25,7 @@ class Task < ActiveRecord::Base
   scope :important_open_find_by_user_id, ->user_id{where(assignee_id: user_id, kind: "Important", status: ["Open","In process"])}
   scope :in_process_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "In process")}
   scope :all_task_open_find_by_user_id, ->user_id{where(assignee_id: user_id, status: "Open").where.not( kind: "Important")}
-  scope :order_by_due_date, ->{order("due_date DESC")}
+  scope :order_by_due_date, ->{order("due_date ASC")}
 
   def validate_due_date?
      self.farm_id.present?
