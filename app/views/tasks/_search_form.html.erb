@@ -13,23 +13,25 @@
     <tr>
       <td class="td-width-10percent">Master first name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :master_first_name_cont, value: (params[:q][:master_first_name_cont] if params[:q]) %>
+        <%= f.select :master_first_name_eq, options_for_select(@tasks.map{|r| r.try(:master).try(:first_name)}.uniq.each{|d| [d,d]}, selected: (params[:q][:master_first_name_eq] if params[:q])), include_blank: true %>
       </td>
       <td class="td-width-10percent">Master last name</td>
       <td class="td-width-23percent">
-        <%= f.text_field :master_last_name_cont, value: (params[:q][:master_last_name_cont] if params[:q]) %>
+        <%= f.select :master_last_name_eq, options_for_select(@tasks.map{|r| r.try(:master).try(:last_name)}.uniq.each{|d| [d,d]}, selected: (params[:q][:master_last_name_eq] if params[:q])), include_blank: true %>
       </td>
     </tr>
-    <tr>
-      <td class="td-width-10percent">Assignee first name</td>
-      <td class="td-width-23percent">
-        <%= f.text_field :assignee_first_name_cont, value: (params[:q][:assignee_first_name_cont] if params[:q]) %>
-      </td>
-      <td class="td-width-10percent">Assignee last name</td>
-      <td class="td-width-23percent">
-        <%= f.text_field :assignee_last_name_cont, value: (params[:q][:assignee_last_name_cont] if params[:q]) %>
-      </td>
-    </tr>
+    <% if @farm.present? %>
+      <tr>
+        <td class="td-width-10percent">Assignee first name</td>
+        <td class="td-width-23percent">
+          <%= f.select :assignee_first_name_eq, options_for_select(@tasks.map{|r| r.try(:assignee).try(:first_name)}.uniq.each{|d| [d,d]}, selected: (params[:q][:assignee_first_name_eq] if params[:q])), include_blank: true %>
+        </td>
+        <td class="td-width-10percent">Assignee last name</td>
+        <td class="td-width-23percent">
+          <%= f.select :assignee_last_name_eq, options_for_select(@tasks.map{|r| r.try(:assignee).try(:last_name)}.uniq.each{|d| [d,d]}, selected: (params[:q][:assignee_last_name_eq] if params[:q])), include_blank: true %>
+        </td>
+      </tr>
+    <% end %>
     <tr>
       <td class="td-width-10percent">Due date great than</td>
       <td class="td-width-23percent">
@@ -45,8 +47,15 @@
       <td class="td-width-23percent">
         <%= f.select :status_eq, options_for_select(Task.list_status.each{|d| [d,d]}, selected: (params[:q][:status_eq] if params[:q])),include_blank: true %>
       </td>
-      <td class="td-width-10percent"></td>
-      <td class="td-width-23percent"></td>
+      <% unless @farm.present? %>
+        <td class="td-width-10percent">Farm</td>
+        <td class="td-width-23percent">
+          <%= f.select :farm_name_eq, options_for_select(@tasks.map{|r| r.try(:farm).try(:name)}.uniq.each{|d| [d,d]}, selected: (params[:q][:farm_name_eq] if params[:q])), include_blank: true %>
+        </td>
+      <% else %>
+        <td class="td-width-10percent"></td>
+        <td class="td-width-23percent"></td>
+      <% end %>
     </tr>
     <tr>
       <td colspan="4">

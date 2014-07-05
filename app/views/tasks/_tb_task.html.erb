@@ -1,0 +1,58 @@
+<% if @tasks.present? %>
+  <%= will_paginate %>
+  <table class = "table table-bordered">
+    <thead>
+      <tr>
+        <th class="table_header">Name</th>
+        <th class="table_header">Short description</th>
+        <th class="table_header">Kind</th>
+        <th class="table_header">Task master</th>
+        <th class="table_header">Task assignee</th>
+        <th class="table_header">Status</th>
+        <th class="table_header">Process</th>
+        <th class="table_header">Deadline</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <% if task.due_date.present? %>
+          <% if Time.now > task.due_date && !task.task_finish? %>
+            <tr class="red-background">
+          <% else %>
+            <% if task.due_date - Time.now < 3600 && !task.task_finish?%>
+              <tr class="yellow-background">
+            <% else %>
+              <tr>
+            <% end %>
+          <% end %>
+        <% else %>
+          <tr>
+        <% end %>
+          <% if @farm %>
+            <td><%= link_to task.name, user_farm_task_path(@user, @farm, task) %></td>
+          <% else %>
+            <td><%= link_to task.name, user_task_path(@user,task) %></td>
+          <% end %>
+          <td><%= task.short_description %></td>
+          <td><%= task.kind %></td>
+          <td><%= link_to task.try(:master).try(:full_name), user_path(task.try(:master)) if task.try(:master).present? %></td>
+          <td><%= link_to task.try(:assignee).try(:full_name), user_path(task.try(:assignee)) if task.try(:assignee).present? %></td>
+          <td><%= task.status %></td>
+          <td>
+            <% if task.process < 50 %>
+              <%= progress_bar(task.process, color: "blue", :rounded => true, :tiny => true) unless task.status == "Open" %>
+            <% else %>
+              <%= progress_bar(task.process, color: "orange", :rounded => true, :tiny => true) %>
+            <% end %>
+          </td>
+          <td>
+            <%= task.due_date.try(:to_time).try(:strftime, "%e/%m/%Y at %H:%M:%S %p") %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate %>
+<% else %>
+  <h3>We don't have any tasks </h3>
+<% end %>
