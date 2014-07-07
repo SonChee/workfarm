@@ -226,6 +226,8 @@ input {
 .magrin-right-3percent {
   padding-right: 3% ;
 }
+
+/* Task */
 .task {
   padding-left: 3px;
   padding-right: 3px;
@@ -279,6 +281,12 @@ input {
   background: #FFAA00;
 }
 
+/* form task */
+.task_description {
+  height: 150px !important;
+  padding-bottom: 0px;
+}
+
 /* form search */
 .td-width-10percent {
   width: 10% ;
@@ -304,3 +312,9 @@ input {
 .comment_attribute {
   height: 80px;
 }
+.form_edit_comment {
+  width: 80% ;
+  margin-left: auto;
+  margin-right: auto;
+}
+

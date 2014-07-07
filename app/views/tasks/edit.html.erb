@@ -1,5 +1,5 @@
 <% provide(:title, "Edit task") %>
-<h1>Edit task</h1>
+<h1>Edit task : <%= @task.name%></h1>
 <% if((@task.master == current_user) || @farm_leader ) %>
   <%= render "edit_by_master" %>
 <% else %>

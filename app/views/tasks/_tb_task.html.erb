@@ -46,7 +46,7 @@
             <% end %>
           </td>
           <td>
-            <%= task.due_date.try(:to_time).try(:strftime, "%e/%m/%Y at %H:%M:%S %p") %>
+            <%= task.due_date.try(:to_time).try(:strftime, "%e/%m/%Y at %H:%M %p") %>
           </td>
         </tr>
       <% end %>

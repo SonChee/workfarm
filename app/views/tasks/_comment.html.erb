@@ -1,0 +1,8 @@
+<div id="comment_<%= comment.id %>">
+  <%= comment.comment.gsub("\n","<br/>").html_safe if comment.try(:comment).present? %>
+</div>
+<% if comment.updated_at == comment.created_at %>
+  <i> posted <%= comment.updated_at.to_time.try(:strftime, "%e/%m/%Y at %H:%M %p") %></i>
+<% else %>
+  <i> edited <%= comment.updated_at.to_time.try(:strftime, "%e/%m/%Y at %H:%M %p") %></i>
+<% end %>

@@ -57,11 +57,27 @@ class TasksController < ::AuthenticatableController
       @farm_leader = true if @task.try(:farm).try(:leaders).include? current_user
     end
     if request.xhr?
-      comment = Comment.new(user_id: params[:user_id], task_id: params[:id], comment: params[:comment])
-      if comment.valid?
-        comment.save
+      if params[:submit_edit_comment].present?
+        comment = Comment.find(params[:comment_id])
+        comment.update_attributes(comment: params[:comment])
+        render partial: "comment", locals: { comment: comment }
+      else
+        if params[:cancel_edit_comment].present?
+          comment = Comment.find(params[:comment_id])
+          render partial: "comment", locals: { comment: comment }
+        else
+          if params[:edit_comment].present?
+            comment = Comment.find(params[:comment_id])
+            render partial: "edit_comment", locals: { comment: comment }
+          else
+            comment = Comment.new(user_id: params[:user_id], task_id: params[:id], comment: params[:comment])
+            if comment.valid?
+              comment.save
+            end
+            render partial: "tb_comment"
+          end
+        end
       end
-      render partial: "tb_comment"
     end
   end
 

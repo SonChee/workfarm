@@ -5,23 +5,3 @@
     <%= hidden_field_tag "farm_id", @farm.id if @farm.present? %>
   <% end %>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $("#submit_comment").on("click", function(event) {
-      event.preventDefault();
-      $.ajax({
-        type: "GET",
-        url: "<%= user_task_path(@user, @task) %>",
-        data: {comment: $("#comment").val()},
-        success: function(data){
-          if (data != null){
-            $("#comment").val("");
-            $("#tb_index").html(data);
-          }else{
-            alert("error internet ?");
-          }
-        }
-      });
-    });
-  });
-</script>

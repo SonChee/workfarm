@@ -22,11 +22,11 @@
                   <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
                   <% left_time = left_time(task.due_date.to_time,Time.now) %>
                   <% if task_time > 3600 %>  
-                    <div>Left time : <%= left_time %></div>
+                    <div>Left time : <%= left_time %>, comments(<%= task.comments.count %>)</div>
                   <% elsif task_time > 0 %>  
-                    <div class="left-time-note">Left time : <%= left_time %></div>
+                    <div class="left-time-note">Left time : <%= left_time %>, comments(<%= task.comments.count %>)</div>
                   <% else %>
-                    <div class="left-time-delay">Delay : <%= left_time %></div>
+                    <div class="left-time-delay">Delay : <%= left_time %>, comments(<%= task.comments.count %>)</div>
                   <% end %> 
                 <% end %>
                 Process : (<%= task.process %>%)
@@ -62,17 +62,17 @@
                 <% if task_time > 3600 %>
                   <div class="task">  
                     <div><%= link_to task.name, admin_task_path(task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% elsif task_time > 0 %>
                   <div class="task-note">
                     <div><%= link_to task.name, admin_task_path(task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% else %>
                   <div class="task-delay">
                     <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
-                    <div>Delay : <%= left_time%></div>
+                    <div>Delay : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% end %>
               <% else %>
@@ -86,17 +86,17 @@
                 <% if task_time > 3600 %>
                   <div class="task">  
                     <div><%= link_to task.name, user_task_path(current_user, task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% elsif task_time > 0 %>
                   <div class="task-note">
                     <div><%= link_to task.name, user_task_path(current_user, task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% else %>
                   <div class="task-delay">
                     <div><%= link_to "Task : " + task.name, user_task_path(current_user, task) %></div>
-                    <div>Delay : <%= left_time%></div>
+                    <div>Delay : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% end %>
               <% else %>
@@ -130,17 +130,17 @@
                 <% if task_time > 3600 %>
                   <div class="task">  
                     <div><%= link_to task.name, admin_task_path(task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% elsif task_time > 0 %>
                   <div class="task-note">
                     <div><%= link_to task.name, admin_task_path(task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% else %>
                   <div class="task-delay">
                     <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
-                    <div>Delay : <%= left_time%></div>
+                    <div>Delay : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% end %>
               <% else %>
@@ -154,17 +154,17 @@
                 <% if task_time > 3600 %>
                   <div class="task">  
                     <div><%= link_to task.name, user_task_path(current_user, task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% elsif task_time > 0 %>
                   <div class="task-note">
                     <div><%= link_to task.name, user_task_path(current_user, task) %></div>
-                    <div>Left time : <%= left_time%></div>
+                    <div>Left time : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% else %>
                   <div class="task-delay">
                     <div><%= link_to "Task : " + task.name, user_task_path(current_user, task) %></div>
-                    <div>Delay : <%= left_time%></div>
+                    <div>Delay : <%= left_time%>, comments(<%= task.comments.count %>)</div>
                   </div>
                 <% end %>
               <% else %>

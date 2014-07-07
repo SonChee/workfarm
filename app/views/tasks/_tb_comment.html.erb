@@ -1,15 +1,23 @@
+<div class="width-table80"> 
+  Comments(<%= @task.comments.count %>)
+</div></br>
 <% @task.comments.each do |comment| %>
-  <table class = "table table-bordered width-table80">
+  <table class = "table table-bordered width-table80", id= <%= comment.id.to_s %> >
     <thead>
       <tr>
-        <th class="table_header"><%= comment.try(:user).try(:full_name) %></th>
+        <th class="table_header">
+          <%= comment.try(:user).try(:full_name) %>
+          <% if comment.user == current_user %>
+            <i><%= link_to "(edit)", "#",  class: "edit_comment", id: "edit_" + comment.id.to_s %></i>
+          <% end %>
+        </th>
       </tr>
     </thead>
     <tbody>
       <td>
-        <%= comment.comment.gsub("\n","<br/>").html_safe if comment.try(:comment).present? %>
-        </br>
-        <i><%= @task.updated_at.try(:strftime, "%e/%m/%Y at %H:%M:%S %p") %></i>
+        <div id="div_content_<%= comment.id %>">
+          <%= render "comment", comment: comment %>
+        </div>
       </td>
     </tbody>
   </table>
