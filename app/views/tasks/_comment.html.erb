@@ -2,7 +2,7 @@
   <%= comment.comment.gsub("\n","<br/>").html_safe if comment.try(:comment).present? %>
 </div>
 <% if comment.updated_at == comment.created_at %>
-  <i> posted <%= comment.updated_at.try(:strftime, "%e/%m/%Y at %H:%M") %></i>
+  <i> posted <%= comment.updated_at.localtime.try(:strftime, "%e/%m/%Y at %H:%M") %></i>
 <% else %>
-  <i> edited <%= comment.updated_at.try(:strftime, "%e/%m/%Y at %H:%M") %></i>
+  <i> edited <%= comment.updated_at.localtime.try(:strftime, "%e/%m/%Y at %H:%M") %></i>
 <% end %>
