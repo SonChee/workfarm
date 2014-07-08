@@ -31,11 +31,11 @@
   </tr>
   <tr>
     <td>Start date</td>
-    <td><%= @task.start_date.to_time.strftime('%e %b %Y at %H:%M:%S %p') if @task.start_date %></td>
+    <td><%= @task.start_date.in_time_zone(+7).strftime('%e %b %Y at %H:%M:%S %p') if @task.start_date %></td>
   </tr>
   <tr>
     <td>Due date</td>
-    <td><%= @task.due_date.to_time.strftime('%e %b %Y at %H:%M:%S %p') if @task.due_date %></td>
+    <td><%= @task.due_date.in_time_zone(+7).strftime('%e %b %Y at %H:%M:%S %p') if @task.due_date %></td>
   </tr>
   <tr>
     <td>Process</td>
