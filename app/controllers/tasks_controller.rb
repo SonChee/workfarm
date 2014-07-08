@@ -4,6 +4,10 @@ class TasksController < ::AuthenticatableController
     if params[:farm_id]
       @user = User.find(params[:user_id])
       @farm = Farm.find(params[:farm_id])
+      position = PositionInFarm.find_by(user_id: params[:user_id], farm_id: params[:farm_id])
+      @manager = true if position.try(:position) == 1
+      @leader = true if position.try(:position) == 2
+
       @q = @farm.tasks.search params[:q]
       @q.build_sort if @q.sorts.empty?
       @tasks = @q.result.order_by_created_at.paginate page: params[:page] , per_page: 15
