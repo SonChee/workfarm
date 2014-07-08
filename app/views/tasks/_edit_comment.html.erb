@@ -1,6 +1,6 @@
 <div class="form_edit_comment">
   <%= text_area_tag "text_area_edit_comment", comment.comment, {id: "text_area_edit_comment"+comment.id.to_s, class: "comment_attribute", placeholder: "write your comment here"} %>
-  <%= link_to "Comment","#", class: "submit_edit_comment", id: "submit_edit_comment" %>
+  <%= link_to "Update","#", class: "submit_edit_comment", id: "submit_edit_comment" %>
   <%= link_to "Cancel","#", class: "cancel_edit_comment", id: "cancel_edit_comment" %>
 </div>
-<%= render "script_edit_comment" %>
+<%= render "script_submit_comment" %>

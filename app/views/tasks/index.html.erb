@@ -2,6 +2,13 @@
 <h1>All tasks</h1>
 <div>
   <%= link_to "Search", "#", class: "search-form-toggle btn", "data-target" => "search-form" %>
+  <% if @manager || @leader %>
+    <%= link_to "Create task", new_user_farm_task_path(@user, @farm), class: "btn" %>
+  <% else %>
+  	<% unless  @farm.present? %>
+  		<%= link_to "Create my task", new_user_task_path(@user), class: "btn" %>
+  	<% end%>
+  <% end %>
   <%= link_to "Back to " + @farm.name, user_farm_path(current_user, @farm) , class: "btn" if @farm.present?%>
 </div>
 </br>

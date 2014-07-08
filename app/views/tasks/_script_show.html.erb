@@ -16,21 +16,5 @@
         }
       });
     });
-    $(".edit_comment").on("click", function(event) {
-      event.preventDefault();
-      var id = $(this).closest("table").attr("id");
-      $.ajax({
-        type: "GET",
-        url: "<%= user_task_path(@user, @task) %>",
-        data: {edit_comment: "true", comment_id: id},
-        success: function(data){
-          if (data != null){
-            $('#div_content_'+ id).html(data);
-          }else{
-            alert("error internet ?");
-          }
-        }
-      });
-    });
   });
 </script>

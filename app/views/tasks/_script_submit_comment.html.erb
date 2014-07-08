@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".submit_edit_comment").on("click", function(event) {
+      event.preventDefault();
+      var id = $(this).closest("table").attr("id");
+      $.ajax({
+        type: "GET",
+        url: "<%= user_task_path(@user, @task) %>",
+        data: {submit_edit_comment: "true", comment: $("#text_area_edit_comment"+id).val(), comment_id: id},
+        success: function(data){
+          if (data != null){
+            $('#div_content_'+ id).html(data);
+          }else{
+            alert("error internet ?");
+          }
+        }
+      });
+    });
+    $(".cancel_edit_comment").on("click", function(event) {
+      event.preventDefault();
+      var id = $(this).closest("table").attr("id");
+      $.ajax({
+        type: "GET",
+        url: "<%= user_task_path(@user, @task) %>",
+        data: {cancel_edit_comment: "true", comment_id: id},
+        success: function(data){
+          if (data != null){
+            $('#div_content_'+ id).html(data);
+          }else{
+            alert("error internet ?");
+          }
+        }
+      });
+    });
+  });
+</script>

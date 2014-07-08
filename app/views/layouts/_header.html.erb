@@ -78,15 +78,7 @@
 <!-- User -->
           <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "All your farms", user_farms_path(current_user) %></li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Task manager <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "All tasks", user_tasks_path(current_user) %></li>
-                <li><%= link_to "Create task", new_user_task_path(current_user) %></li>
-              </ul>
-            </li>
+            <li><%= link_to "All tasks", user_tasks_path(current_user) %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>

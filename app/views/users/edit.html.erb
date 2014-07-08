@@ -18,19 +18,48 @@
       <%= f.label :address %>
       <%= f.text_field :address %>
 
-      <%= f.label :current_password %>
+      <div id= "div_btn_change_password">
+        <%= f.label :current_password, class: "display-inline" %> 
+        <%= link_to "(Change password)", "#", id: "btn_change_password", class: "display-inline"%>
+      </div>
+      <div id= "div_btn_cancel_change_password">
+        <%= f.label :current_password, class: "display-inline" %> 
+        <%= link_to "(Cancel change password)", "#", id: "btn_cancel_change_password", class: "display-inline"%>
+      </div>
       <%= f.password_field :current_password %>
+      <div id="change_password">
+        <%= f.label :password, "New password" %>
+        <%= f.password_field :password %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+        <%= f.label :password_confirmation, "New password confirm" %>
+        <%= f.password_field :password_confirmation %>
+      </div>
 
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
-
+      
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
 
     <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">change</a>
+    <a href="http://gravatar.com/emails">change avata</a>
   </div>
 </div>
+<script type="text/javascript">
+  $("#change_password").hide();
+  $("#div_btn_cancel_change_password").hide();
+  $(document).ready(function(){
+    $("#btn_change_password").on("click", function(event) {
+      event.preventDefault();
+      $("#div_btn_change_password").hide();
+      $("#change_password").show();
+      $("#div_btn_cancel_change_password").show();
+    });
+    $("#btn_cancel_change_password").on("click", function(event) {
+      event.preventDefault();
+      $("#div_btn_cancel_change_password").hide();
+      $("#user_password").val("");
+      $("#user_password_confirmation").val("");
+      $("#change_password").hide();
+      $("#div_btn_change_password").show();
+    });
+  });
+</script>

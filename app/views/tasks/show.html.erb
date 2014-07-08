@@ -33,11 +33,11 @@
   </tr>
   <tr>
     <td>Start date</td>
-    <td><%= @task.start_date.to_time.strftime('%d/%m/%Y at %H:%M %p') if @task.start_date %></td>
+    <td><%= @task.start_date.localtime.strftime('%d/%m/%Y at %H:%M %p %Z') if @task.start_date %></td>
   </tr>
   <tr>
     <td>Due date</td>
-    <td><%= @task.due_date.to_time.strftime('%d/%m/%Y at %H:%M %p') if @task.due_date %></td>
+    <td><%= @task.due_date.to_time.strftime('%d/%m/%Y at %H:%M %p %Z') if @task.due_date %></td>
   </tr>
   <tr>
     <td>Process</td>
