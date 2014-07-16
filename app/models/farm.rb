@@ -8,6 +8,7 @@ class Farm < ActiveRecord::Base
   belongs_to :big_farm, class_name: "Farm", foreign_key: :big_farm_id
   has_many :tasks, dependent: :destroy
   has_many :users, through: :position_in_farms
+  has_one :chat_group
   has_many :position_in_farms, dependent: :destroy
   accepts_nested_attributes_for :position_in_farms, allow_destroy: true, reject_if: ->attrs{attrs["user_id"] == "0"}
   

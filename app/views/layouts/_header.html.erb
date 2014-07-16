@@ -77,6 +77,7 @@
           <% else %>
 <!-- User -->
           <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Chat groups", chat_groups_path %></li>
             <li><%= link_to "All your farms", user_farms_path(current_user) %></li>
             <li><%= link_to "All tasks", user_tasks_path(current_user) %></li>
             <li id="fat-menu" class="dropdown">

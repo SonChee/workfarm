@@ -1,0 +1,23 @@
+<% provide(:title, "Index") %>
+<h1>All chat groups</h1>
+<% if @chat_groups.present? %>
+  <table class = "table table-bordered width-table90">
+    <thead>
+      <tr>
+        <th class="table_header">Name</th>
+        <th class="table_header">Farm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @chat_groups.each do |chat_group| %>
+        <% if chat_group.present? %>
+          <tr>
+            <td><%= link_to chat_group.name , chat_group_path(chat_group) %></td>
+            <td><%= link_to chat_group.try(:farm).try(:name) , user_farm_path(current_user, chat_group.try(:farm)) if chat_group.try(:farm).present? %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3>We don't have any chat groups </h3>
+<% end %>

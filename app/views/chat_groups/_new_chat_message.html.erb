@@ -1,0 +1,4 @@
+<%= form_for @new_chat_message, url: "#", method: :get do |f| %>
+    <%= f.text_area :message, placeholder: "Enter your message ...", class: "chat_comment" %>
+    <%= f.submit "SEND", class: "btn btn-primary send_comment" , id: "submit_chat_message"%>
+<% end %>
