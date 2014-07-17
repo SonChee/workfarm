@@ -377,3 +377,12 @@ input {
 .to_user {
   background: #90BDDB ;
 }
+.div_message:hover
+{
+  border-top-style:inset;
+  border-top-width:1px;
+  border-top-color: #E8E8E8;
+  border-bottom-style:inset;
+  border-bottom-width:1px;
+  border-bottom-color: #E8E8E8;
+}
