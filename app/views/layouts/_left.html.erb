@@ -54,7 +54,12 @@
         <% if chat_group.present? %>
           <tr>
             <td>
+              <% count = FlagRead.chat_messages_un_read(current_user.id, chat_group.id).count %>
               <%= link_to chat_group.name , chat_group_path(chat_group) %>
+              
+              <% unless count == 0 %>
+                <b>(<%= count %> messages)</b>
+              <% end %>
             </td>
           </tr>
         <% end %>

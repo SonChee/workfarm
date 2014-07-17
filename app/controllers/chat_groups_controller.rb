@@ -11,17 +11,40 @@ class ChatGroupsController < ::AuthenticatableController
   end
 
   def show
-    if params[:message].present?
-      @new_message = ChatMessage.new(user_id: current_user.id, 
-        chat_group_id: params[:chat_group_id], message: params[:message])
-      if @new_message.valid?
-        @new_message.save
-        @chat_messages = @chat_group.chat_messages
+    flag_reads = FlagRead.chat_messages_un_read(current_user.id, @chat_group.id)
+    flag_reads.each do |flag_read|
+      flag_read.update_attributes flag: true
+    end
+    if request.xhr?
+      if params[:message].present?
+        @new_message = ChatMessage.new(user_id: current_user.id, 
+          chat_group_id: params[:chat_group_id], message: params[:message], 
+          to_user_ids: params[:to_user_ids])
+        if @new_message.valid?
+          @chat_group.farm.users.each do |user|
+            if user.id == current_user.id
+               @new_message.flag_reads.build user_id: user.id, chat_group_id: @chat_group.id, flag: true
+            else
+              @new_message.flag_reads.build user_id: user.id, chat_group_id: @chat_group.id
+            end
+          end
+          @new_message.save
+          @chat_messages = @chat_group.chat_messages.number_limit 30
+        end
+        render partial: "chat_messages"
       end
-      render partial: "chat_messages"
+      if params[:number_messages].present?
+        @chat_messages = @chat_group.chat_messages.number_limit params[:number_messages]
+        render partial: "chat_messages"
+      end
+      if params[:delete_all_messages].present?
+        @chat_messages = @chat_group.chat_messages
+        @chat_messages.destroy_all
+        render partial: "chat_messages"
+      end
     end
     @new_chat_message = ChatMessage.new
-    @chat_messages = @chat_group.chat_messages
+    @chat_messages = @chat_group.chat_messages.number_limit 30
   end
 
   def new

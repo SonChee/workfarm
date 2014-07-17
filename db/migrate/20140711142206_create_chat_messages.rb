@@ -4,6 +4,7 @@ class CreateChatMessages < ActiveRecord::Migration
       t.integer :user_id
       t.integer :chat_group_id
       t.string :message
+      t.string :to_user_ids
       t.timestamps
     end
   end

@@ -1,27 +1,11 @@
 <% provide(:title, "Create chat group") %>
 <h3><%= @chat_group.name %></h3>
-<!-- <table class = "table table-bordered width-table90">
-	<tr>
-    <td width = "20%">Farm</td>
-    <td>
-      <%= @chat_group.try(:farm).try(:name) %>
-    </td>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>
-      <%= @chat_group.name %>
-    </td>
-  </tr>
-  <tr>
-    <td>Description</td>
-    <td><%= @chat_group.description %></td>
-  </tr>
-  <tr>
-    <td>Note</td>
-    <td><%= @chat_group.note %></td>
-  </tr>
-</table> -->
+<div class= "div_90 center"><%= @chat_group.note %></div>
+<% if @chat_group.farm.leaders.include? current_user %>
+  <div class="div_90">
+    <%= link_to "delete all messages", "#", id: "delete_all_messages", class: "btn btn-primary" %>
+  </div>
+<% end %>
 <div class="scroll_view", id="scroll_view">
   <%= render "chat_messages" %>
 </div>
