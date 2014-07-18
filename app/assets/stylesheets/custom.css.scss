@@ -412,6 +412,11 @@ input {
 .to_user {
   background: #CEE2F0 ;
 }
+.div_message {
+  border-bottom-style:inset;
+  border-bottom-width:1px;
+  border-bottom-color: #F5F5F5;
+}
 .div_message:hover
 {
   border-top-style:inset;
