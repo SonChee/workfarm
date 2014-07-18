@@ -253,6 +253,41 @@ input {
   border-style: solid;
   border-width: 0px;
 }
+.image_deadline40 {
+  background-image: url("deadline_40.png");
+  background-repeat: no-repeat;
+  background-position: center top; 
+}
+.image_deadline60 {
+  background-image: url("deadline_60.png");
+  background-repeat: no-repeat;
+  background-position: center top; 
+}
+.image_deadline120 {
+  background-image: url("deadline_120.png");
+  background-repeat: no-repeat;
+  background-position: center top; 
+}
+.image_deadline250 {
+  background-image: url("deadline_250.png");
+  background-repeat: no-repeat;
+  background-position: center top; 
+}
+.image_warning40 {
+  background-image: url("warning_40.png");
+  background-repeat: no-repeat;
+  background-position: right top; 
+}
+.image_warning60 {
+  background-image: url("warning_60.png");
+  background-repeat: no-repeat;
+  background-position: right top; 
+}
+.image_warning120 {
+  background-image: url("warning_120.png");
+  background-repeat: no-repeat;
+  background-position: right top; 
+}
 .task-note {
   padding-left: 3px;
   margin-top: 6px;
@@ -375,14 +410,15 @@ input {
   width: 200px;
 }
 .to_user {
-  background: #90BDDB ;
+  background: #CEE2F0 ;
 }
 .div_message:hover
 {
   border-top-style:inset;
   border-top-width:1px;
-  border-top-color: #E8E8E8;
+  # border-top-color: #E8E8E8;
   border-bottom-style:inset;
   border-bottom-width:1px;
-  border-bottom-color: #E8E8E8;
+  # border-bottom-color: #E8E8E8;
+  background: #92C0E0 ;
 }

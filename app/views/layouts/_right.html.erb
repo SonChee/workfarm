@@ -15,7 +15,19 @@
       <% if inprocess_tasks.present? %>
         <% inprocess_tasks.each do |task| %>
           <tr>
-            <td>
+            <% if task.due_date %>
+              <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
+              <% left_time = left_time(task.due_date.to_time,Time.now) %>
+              <% if task_time > 3600 %>
+                <td>
+              <% elsif task_time > 0 %>
+                <td class="image_warning60">
+              <% else %>
+                <td class="image_deadline120">
+              <% end %>
+            <% else %>
+              <td>
+            <% end %>
               <% case current_user.class.name %>
               <% when "Admin" %>
                 <div><%= link_to "Task : " + task.name, admin_task_path(task) %></div>
@@ -26,8 +38,6 @@
 
               <div>
                 <% if task.due_date %>
-                  <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
-                  <% left_time = left_time(task.due_date.to_time,Time.now) %>
                   <% if task_time > 3600 %>  
                     <div>Left time : <%= left_time %>, comments(<%= task.comments.count %>)</div>
                   <% elsif task_time > 0 %>  
@@ -68,9 +78,20 @@
       <tbody >
         <% important_tasks.each do |task| %>
           <tr>
-            <td>
-              <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) if task.due_date %>
-              <% left_time = left_time(task.due_date.to_time,Time.now) if task.due_date %>
+            <% if task.due_date %>
+              <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
+              <% left_time = left_time(task.due_date.to_time,Time.now) %>
+              <% if task_time > 3600 %>
+                <td>
+              <% elsif task_time > 0 %>
+                <td class="image_warning40">
+              <% else %>
+                <td class="image_deadline60">
+              <% end %>
+            <% else %>
+              <td>
+            <% end %>
+
               <% case current_user.class.name %>
               <% when "Admin" %>
                 <% if task.due_date %>
@@ -140,9 +161,19 @@
       <% if all_tasks.present? %>
         <% all_tasks.each do |task| %>
           <tr>
-            <td>
-              <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) if task.due_date %>
-              <% left_time = left_time(task.due_date.to_time,Time.now) if task.due_date %>
+              <% if task.due_date %>
+                <% task_time = ( task.due_date.to_time.to_i - Time.now.to_i ) %>
+                <% left_time = left_time(task.due_date.to_time,Time.now) %>
+                <% if task_time > 3600 %>
+                  <td>
+                <% elsif task_time > 0 %>
+                  <td class="image_warning40">
+                <% else %>
+                  <td class="image_deadline60">
+                <% end %>
+              <% else %>
+                <td>
+              <% end %>
               <% case current_user.class.name %>
               <% when "Admin" %>
                 <% if task.due_date %>
