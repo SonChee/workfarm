@@ -254,37 +254,37 @@ input {
   border-width: 0px;
 }
 .image_deadline40 {
-  background-image: url("deadline_40.png");
+  background-image: asset-url("task/deadline_40.png", image);
   background-repeat: no-repeat;
   background-position: center top; 
 }
 .image_deadline60 {
-  background-image: url("deadline_60.png");
+  background-image: asset-url("task/deadline_60.png", image);
   background-repeat: no-repeat;
   background-position: center top; 
 }
 .image_deadline120 {
-  background-image: url("deadline_120.png");
+  background-image: asset-url("task/deadline_120.png", image);
   background-repeat: no-repeat;
   background-position: center top; 
 }
 .image_deadline250 {
-  background-image: url("deadline_250.png");
+  background-image: asset-url("task/deadline_250.png", image);
   background-repeat: no-repeat;
   background-position: center top; 
 }
 .image_warning40 {
-  background-image: url("warning_40.png");
+  background-image: asset-url("task/warning_40.png", image);
   background-repeat: no-repeat;
   background-position: right top; 
 }
 .image_warning60 {
-  background-image: url("warning_60.png");
+  background-image: asset-url("task/warning_60.png", image);
   background-repeat: no-repeat;
   background-position: right top; 
 }
 .image_warning120 {
-  background-image: url("warning_120.png");
+  background-image: asset-url("task/warning_120.png", image);
   background-repeat: no-repeat;
   background-position: right top; 
 }
