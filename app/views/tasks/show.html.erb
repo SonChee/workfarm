@@ -1,6 +1,18 @@
 <% provide(:title, @task.name) %>
 <h1>Task: <%= @task.name%></h1>
-<table class = "table table-bordered width-table80">
+<% if @task.due_date %>
+  <% task_time = ( @task.due_date.to_time.to_i - Time.now.to_i ) %>
+  <% left_time = left_time(@task.due_date.to_time,Time.now) %>
+  <% if task_time > 3600 %>
+    <table class = "table table-bordered width-table80">
+  <% elsif task_time > 0 %>
+    <table class = "table table-bordered width-table80 image_warning120">
+  <% else %>
+    <table class = "table table-bordered width-table80 image_deadline250">
+  <% end %>
+<% else %>
+  <table class = "table table-bordered width-table80">
+<% end %>
   <tr>
     <td width="150px">Name</td>
     <td><%= @task.name %></td>

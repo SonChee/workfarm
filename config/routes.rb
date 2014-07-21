@@ -29,6 +29,16 @@ WorkFarm::Application.routes.draw do
       resources :tasks
     end
   end
+  resources :chat_groups
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      devise_scope :user do
+        post "/sign_in" => "sessions#create"
+        delete "/sign_out" => "sessions#destroy"
+      end
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

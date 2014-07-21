@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   has_many :position_in_farms, dependent: :destroy
   has_many :farms, through: :position_in_farms
   belongs_to :big_farm, class_name: "Farm" ,foreign_key: :current_big_farm_id
+  has_many :flag_reads, dependent: :destroy
+  
+  scope :find_by_ids, ->array_record_ids{where(id: array_record_ids)}
 
   class << self
 

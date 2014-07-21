@@ -1,0 +1,15 @@
+<% provide(:title, "Create chat group") %>
+<h3><%= @chat_group.name %></h3>
+<div class= "div_90 center"><%= @chat_group.note %></div>
+<% if @chat_group.farm.leaders.include? current_user %>
+  <div class="div_90">
+    <%= link_to "delete all messages", "#", id: "delete_all_messages", class: "btn btn-primary" %>
+  </div>
+<% end %>
+<div class="scroll_view", id="scroll_view">
+  <%= render "chat_messages" %>
+</div>
+<div class="new_chat_message">
+  <%= render "new_chat_message" %>
+</div>
+<%= render "script_show" %>

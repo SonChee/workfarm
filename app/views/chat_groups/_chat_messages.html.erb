@@ -1,0 +1,5 @@
+<% if @chat_messages.present? %>
+  <% @chat_messages.reverse_each do |message| %>
+  	<%= render "message", message: message %>
+  <% end %>
+<% end %>

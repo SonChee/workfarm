@@ -1,0 +1,9 @@
+<%= form_for @new_chat_message, url: "#", method: :get do |f| %>
+  <div id = "btn_to_users"><%= link_to "TO", "#", class: "btn btn-primary", id: "btn_select_user"%></div>
+	<div id = "form_select_to_users">
+    <%= f.select :to_user_ids, options_for_select(@chat_group.farm.users.map { |user| [user.full_name, user.id] }) , {}, {class: "select option", multiple: true, include_blank: true} %>
+    Ctrl + click mouse to select multi user or un-select user.
+  </div>
+  <%= f.text_area :message, placeholder: "Enter your message ...", class: "chat_comment" %>
+  <%= f.submit "SEND", class: "btn btn-primary send_comment" , id: "submit_chat_message"%>
+<% end %>

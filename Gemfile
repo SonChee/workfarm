@@ -13,6 +13,7 @@ gem 'bootstrap-datetimepicker-rails'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem "ransack"
+gem "websocket-rails"
 
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'

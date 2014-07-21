@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705073837) do
+ActiveRecord::Schema.define(version: 20140717012946) do
+
+  create_table "chat_groups", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "note"
+    t.integer  "farm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "chat_messages", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "chat_group_id"
+    t.string   "message"
+    t.string   "to_user_ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.integer  "task_id"
@@ -29,6 +47,15 @@ ActiveRecord::Schema.define(version: 20140705073837) do
     t.integer  "kind"
     t.integer  "floor"
     t.integer  "big_farm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "flag_reads", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "chat_message_id"
+    t.integer  "chat_group_id"
+    t.integer  "flag",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

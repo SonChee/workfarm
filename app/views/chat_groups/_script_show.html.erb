@@ -1,0 +1,81 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    var number_messages = 30;
+    $("#form_select_to_users").hide();
+    $("#scroll_view").scrollTop($("#scroll_view")[0].scrollHeight);
+    $("#submit_chat_message").on("click", function(event) {
+      event.preventDefault();
+      var to_user_ids = $("#chat_message_to_user_ids").val();
+      if(to_user_ids != null){
+        to_user_ids = to_user_ids.join();
+      }
+      $("#chat_message_to_user_ids").val("");
+      if($("#chat_message_message").val() != ""){
+        $.ajax({
+          type: "GET",
+          url: "<%= chat_group_path(@chat_group) %>",
+          data: {chat_group_id: "<%= @chat_group.id %>", message: $("#chat_message_message").val(), to_user_ids: to_user_ids},
+          success: function(data){
+            if (data != null){
+              $("#chat_message_message").val("");
+              $("#scroll_view").html(data);
+              $("#scroll_view").scrollTop($("#scroll_view")[0].scrollHeight);
+            }else{
+              alert("error internet ?");
+            }
+          }
+        }); 
+      }
+    });
+    $("#btn_select_user").on("click", function(event) {
+      event.preventDefault();
+      if($("#form_select_to_users").css("display") == "none"){
+        $("#form_select_to_users").show();
+      }else{
+        $("#form_select_to_users").hide();
+      }
+      
+    });
+    $("#scroll_view").on("scroll", function(event) {
+      event.preventDefault();
+      if($("#scroll_view").scrollTop() == 0){
+        number_messages += 30;
+        var old_scrollHeight = $("#scroll_view")[0].scrollHeight;
+        $.ajax({
+          type: "GET",
+          url: "<%= chat_group_path(@chat_group) %>",
+          data: {number_messages: number_messages},
+          success: function(data){
+            if (data != null){
+              $("#chat_message_message").val("");
+              $("#scroll_view").html(data);
+              $("#scroll_view").scrollTop($("#scroll_view")[0].scrollHeight - old_scrollHeight);
+            }else{
+              alert("error internet ?");
+            }
+          }
+        }); 
+      }
+    });
+    $("#delete_all_messages").on("click", function(event) {
+      event.preventDefault();
+      var r = confirm("Are you sure!");
+      if (r == true) {
+        $.ajax({
+          type: "GET",
+          url: "<%= chat_group_path(@chat_group) %>",
+          data: {delete_all_messages: "true"},
+          success: function(data){
+            if (data != null){
+              $("#chat_message_message").val("");
+              $("#scroll_view").html(data);
+              $("#scroll_view").scrollTop($("#scroll_view")[0].scrollHeight);
+            }else{
+              alert("error internet ?");
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
