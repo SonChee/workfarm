@@ -1,0 +1,41 @@
+<% if message.to_user_ids.split(",").include? current_user.id.to_s %>
+  <div class="to_user div_message">
+    <div class="chat_message ", id: "message_<%= message.id.to_s %>">
+      <% if message.user.present? %>
+        <b><%= link_to message.user.full_name, user_path(message.user) %></b>
+        <i>(<%= message.created_at.in_time_zone(+7).try(:strftime, "%H:%M %e/%m")%>)</i>:
+        <% if message.to_user_ids.present? %>
+          <div>
+          <b>TO :</b>
+          <% to_users = User.find_by_ids message.to_user_ids.split(",") %>
+          <% to_users.each do |to_user| %>
+            <b><%= link_to to_user.full_name, user_path(to_user) %></b>
+            <% unless to_user == to_users.last %> ,<% end %>
+          <% end %>
+          </div>
+        <% end %>
+        <%= message.message.gsub("\n","<br/>").html_safe %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="div_message">
+    <div class="chat_message", id: "message_<%= message.id.to_s %>">
+      <% if message.user.present? %>
+        <b><%= link_to message.user.full_name, user_path(message.user) %></b>
+        <i>(<%= message.created_at.in_time_zone(+7).try(:strftime, "%H:%M %e/%m")%>)</i>:
+        <% if message.to_user_ids.present? %>
+          <div>
+          <b>TO :</b>
+          <% to_users = User.find_by_ids message.to_user_ids.split(",") %>
+          <% to_users.each do |to_user| %>
+            <b><%= link_to to_user.full_name, user_path(to_user) %></b>
+            <% unless to_user == to_users.last %> ,<% end %>
+          <% end %>
+          </div>
+        <% end %>
+        <%= message.message.gsub("\n","<br/>").html_safe %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require_tree .
 //= require websocket_rails/main
+//= require web_socket
 
